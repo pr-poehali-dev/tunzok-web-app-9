@@ -121,6 +121,7 @@ export const translations = {
     rest: 'Отдых',
     focusNow: 'Сфокусируйтесь',
     relaxBody: 'Расслабьте тело',
+    customTimer: 'Установить свой таймер',
     
     // Community
     news: 'Новости',
@@ -254,6 +255,7 @@ export const translations = {
     rest: 'Rest',
     focusNow: 'Focus now',
     relaxBody: 'Relax body',
+    customTimer: 'Set custom timer',
     
     // Community
     news: 'News',

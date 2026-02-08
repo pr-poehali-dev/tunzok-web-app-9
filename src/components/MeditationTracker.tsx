@@ -21,6 +21,7 @@ export function MeditationTracker() {
   const [selectedType, setSelectedType] = useState('breathing');
   const [breathPhase, setBreathPhase] = useState<'inhale' | 'hold' | 'exhale' | 'rest'>('inhale');
   const [phaseTimer, setPhaseTimer] = useState(0);
+  const [showModal, setShowModal] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const meditationTypes: Array<{id: string; nameKey: keyof typeof import('@/lib/i18n').translations.ru; icon: string}> = [
@@ -83,6 +84,7 @@ export function MeditationTracker() {
   };
 
   const startSession = () => {
+    setShowModal(true);
     setIsActive(true);
     setSeconds(0);
     setBreathPhase('inhale');
@@ -92,6 +94,7 @@ export function MeditationTracker() {
 
   const stopSession = () => {
     setIsActive(false);
+    setShowModal(false);
     playSound();
     if (seconds > 0) {
       const newSession: MeditationSession = {
@@ -120,6 +123,7 @@ export function MeditationTracker() {
 
 
   return (
+    <>
     <Card className="transition-all hover:shadow-lg">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
@@ -144,65 +148,15 @@ export function MeditationTracker() {
           ))}
         </div>
 
-        <div className="text-center py-8 relative">
-          {isActive && selectedType === 'breathing' && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div 
-                className={`text-4xl font-bold transition-all duration-1000 ${
-                  breathPhase === 'inhale' ? 'text-blue-500 scale-110' :
-                  breathPhase === 'hold' ? 'text-purple-500 scale-100' :
-                  breathPhase === 'exhale' ? 'text-green-500 scale-90' :
-                  'text-gray-400 scale-95'
-                }`}
-              >
-                {breathPhase === 'inhale' && '🌬️ ' + t('inhale')}
-                {breathPhase === 'hold' && '⏸️ ' + t('hold')}
-                {breathPhase === 'exhale' && '💨 ' + t('exhale')}
-                {breathPhase === 'rest' && '✨ ' + t('rest')}
-              </div>
-            </div>
-          )}
-
-          {isActive && selectedType === 'mindfulness' && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-3xl animate-pulse text-purple-500">
-                🧘 {t('focusNow')}
-              </div>
-            </div>
-          )}
-
-          {isActive && selectedType === 'body-scan' && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-3xl animate-pulse text-blue-500">
-                🌊 {t('relaxBody')}
-              </div>
-            </div>
-          )}
-
-          <div className={`text-6xl font-bold mb-4 transition-all ${
-            isActive ? 'text-muted-foreground opacity-50' : 'text-primary'
-          }`}>
-            {formatTime(seconds)}
-          </div>
-          
-          {!isActive ? (
-            <Button 
-              onClick={startSession}
-              className="w-full transition-all hover:scale-[1.02]"
-            >
-              <Icon name="Play" className="mr-2 h-4 w-4" />
-              {t('startSession')}
-            </Button>
-          ) : (
-            <Button 
-              onClick={stopSession}
-              variant="destructive"
-              className="w-full transition-all hover:scale-[1.02]"
-            >
-              <Icon name="Square" className="mr-2 h-4 w-4" />
-              {t('stopSession')}
-            </Button>
-          )}
+        <div className="text-center py-8">
+          <Button 
+            onClick={startSession}
+            className="w-full transition-all hover:scale-[1.02]"
+            size="lg"
+          >
+            <Icon name="Play" className="mr-2 h-5 w-5" />
+            {t('startSession')}
+          </Button>
         </div>
 
         <div className="grid grid-cols-2 gap-4 pt-4 border-t">
@@ -238,5 +192,92 @@ export function MeditationTracker() {
         )}
       </CardContent>
     </Card>
+
+    {showModal && (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm animate-in fade-in duration-300">
+        <div className="relative w-full h-full flex flex-col items-center justify-center p-8">
+          <div className="absolute top-8 right-8">
+            <Button
+              onClick={stopSession}
+              variant="ghost"
+              size="icon"
+              className="text-white hover:bg-white/10 h-12 w-12"
+            >
+              <Icon name="X" className="h-6 w-6" />
+            </Button>
+          </div>
+
+          <div className="flex-1 flex flex-col items-center justify-center space-y-12">
+            {selectedType === 'breathing' && (
+              <div 
+                className={`text-7xl md:text-9xl font-bold transition-all duration-1000 ${
+                  breathPhase === 'inhale' ? 'text-blue-400 scale-110' :
+                  breathPhase === 'hold' ? 'text-purple-400 scale-100' :
+                  breathPhase === 'exhale' ? 'text-green-400 scale-90' :
+                  'text-gray-400 scale-95'
+                }`}
+              >
+                <div className="text-center">
+                  {breathPhase === 'inhale' && '🌬️'}
+                  {breathPhase === 'hold' && '⏸️'}
+                  {breathPhase === 'exhale' && '💨'}
+                  {breathPhase === 'rest' && '✨'}
+                  <div className="mt-4">
+                    {breathPhase === 'inhale' && t('inhale')}
+                    {breathPhase === 'hold' && t('hold')}
+                    {breathPhase === 'exhale' && t('exhale')}
+                    {breathPhase === 'rest' && t('rest')}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {selectedType === 'mindfulness' && (
+              <div className="text-6xl md:text-8xl animate-pulse text-purple-400 text-center">
+                🧘
+                <div className="mt-4 text-5xl md:text-7xl">{t('focusNow')}</div>
+              </div>
+            )}
+
+            {selectedType === 'body-scan' && (
+              <div className="text-6xl md:text-8xl animate-pulse text-blue-400 text-center">
+                🌊
+                <div className="mt-4 text-5xl md:text-7xl">{t('relaxBody')}</div>
+              </div>
+            )}
+
+            <div className="text-8xl md:text-9xl font-bold text-white/90">
+              {formatTime(seconds)}
+            </div>
+          </div>
+
+          <div className="w-full max-w-md space-y-3">
+            <Button
+              onClick={stopSession}
+              variant="destructive"
+              size="lg"
+              className="w-full text-lg py-6"
+            >
+              <Icon name="Square" className="mr-2 h-5 w-5" />
+              {t('stopSession')}
+            </Button>
+
+            <Button
+              variant="outline"
+              size="lg"
+              className="w-full text-lg py-6 bg-white/5 border-white/20 text-white hover:bg-white/10 relative"
+              disabled
+            >
+              <Icon name="Lock" className="mr-2 h-5 w-5" />
+              {t('customTimer')}
+              <span className="absolute top-1 right-1 text-xs bg-purple-500 text-white px-2 py-0.5 rounded-full">
+                {t('tunzokPlus')}
+              </span>
+            </Button>
+          </div>
+        </div>
+      </div>
+    )}
+    </>
   );
 }

@@ -134,6 +134,14 @@ export const translations = {
     youtubeDesc: 'Видео о здоровом образе жизни',
     telegramDesc: 'Новости и общение с командой',
     contactUs: 'По вопросам обращаться',
+    
+    achievementBeginnerName: 'Новичок',
+    achievementBeginnerDesc: 'Ну теперь я знаю, как тут всё устроено',
+    sleepDataCount: 'снов',
+    meditationTypesCount: 'видов',
+    walkTime: 'прогулка',
+    workoutsCount: 'тренировок',
+    achievementUnlocked: 'Достижение получено!',
   },
   en: {
     // Header
@@ -268,6 +276,14 @@ export const translations = {
     youtubeDesc: 'Videos about healthy lifestyle',
     telegramDesc: 'News and communication with the team',
     contactUs: 'For inquiries contact',
+    
+    achievementBeginnerName: 'Beginner',
+    achievementBeginnerDesc: 'Now I know how everything works here',
+    sleepDataCount: 'sleeps',
+    meditationTypesCount: 'types',
+    walkTime: 'walk',
+    workoutsCount: 'workouts',
+    achievementUnlocked: 'Achievement unlocked!',
   }
 };
 

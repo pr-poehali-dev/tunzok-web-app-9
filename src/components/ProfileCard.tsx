@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Icon from '@/components/ui/icon';
 import { t } from '@/lib/i18n';
+import { AchievementsCard } from './AchievementsCard';
 
 interface ProfileData {
   name: string;
@@ -129,38 +130,7 @@ export function ProfileCard() {
       </CardContent>
     </Card>
 
-    <Card className="transition-all hover:shadow-lg relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-orange-500/5 backdrop-blur-sm z-10" />
-      <div className="absolute top-4 right-4 z-20">
-        <span className="px-3 py-1 bg-orange-500/20 text-orange-600 dark:text-orange-400 text-xs font-semibold rounded-full border border-orange-500/30">
-          {t('achievementsInDev')}
-        </span>
-      </div>
-      <CardHeader className="relative z-20">
-        <CardTitle className="flex items-center gap-2">
-          <Icon name="Trophy" className="h-5 w-5 text-yellow-500" />
-          {t('achievements')}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="relative z-20">
-        <div className="text-center py-8 space-y-4">
-          <div className="flex justify-center gap-4 mb-6 opacity-50 grayscale">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center">
-              <Icon name="Star" className="h-8 w-8 text-white" />
-            </div>
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center">
-              <Icon name="Award" className="h-8 w-8 text-white" />
-            </div>
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center">
-              <Icon name="Medal" className="h-8 w-8 text-white" />
-            </div>
-          </div>
-          <p className="text-sm text-muted-foreground max-w-md">
-            {t('achievementsDesc')}
-          </p>
-        </div>
-      </CardContent>
-    </Card>
+    <AchievementsCard />
     </div>
   );
 }

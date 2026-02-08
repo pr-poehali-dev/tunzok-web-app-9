@@ -63,37 +63,49 @@ export function AchievementsCard() {
       });
     }
 
-    const walkData = localStorage.getItem('tunzok_walks');
+    const walkData = localStorage.getItem('tunzok_walk_history');
     let totalWalkMinutes = 0;
     if (walkData) {
       const walks = JSON.parse(walkData);
       totalWalkMinutes = walks.reduce((acc: number, walk: {duration: number}) => acc + (walk.duration / 60), 0);
     }
 
-    const workoutData = localStorage.getItem('tunzok_workouts');
+    const workoutData = localStorage.getItem('tunzok_workout_history');
     const workouts = workoutData ? JSON.parse(workoutData).length : 0;
 
     const savedUnlocked = localStorage.getItem('tunzok_achievements');
     const unlocked = savedUnlocked ? new Set(JSON.parse(savedUnlocked)) : new Set();
 
-    setProgress({
+    const currentProgress = {
       sleeps,
       meditationTypes,
       walkMinutes: totalWalkMinutes,
       workouts,
-    });
+    };
+
+    setProgress(currentProgress);
     setUnlockedAchievements(unlocked);
 
+    console.log('Achievement Progress:', {
+      sleeps,
+      meditationTypes: [...meditationTypes],
+      walkMinutes: totalWalkMinutes,
+      workouts,
+    });
+
     achievements.forEach(achievement => {
-      if (!unlocked.has(achievement.id) && isAchievementUnlocked(achievement, {
-        sleeps,
-        meditationTypes,
-        walkMinutes: totalWalkMinutes,
-        workouts,
-      })) {
+      const isUnlocked = isAchievementUnlocked(achievement, currentProgress);
+      console.log(`Achievement "${achievement.id}":`, {
+        isUnlocked,
+        requirements: achievement.requirements,
+        currentProgress,
+      });
+      
+      if (!unlocked.has(achievement.id) && isUnlocked) {
         unlocked.add(achievement.id);
         localStorage.setItem('tunzok_achievements', JSON.stringify([...unlocked]));
         setUnlockedAchievements(new Set(unlocked));
+        console.log(`🎉 Achievement "${achievement.id}" unlocked!`);
       }
     });
   }, []);
@@ -201,7 +213,7 @@ export function AchievementsCard() {
                       <div className="flex items-center gap-1.5">
                         <Icon name="FootprintsIcon" className="h-3.5 w-3.5 text-green-500" />
                         <span className={progress.walkMinutes >= req.walkMinutes ? 'text-green-500 font-semibold' : 'text-muted-foreground'}>
-                          {Math.floor(progress.walkMinutes)}:{((progress.walkMinutes % 1) * 60).toFixed(0).padStart(2, '0')}/{Math.floor(req.walkMinutes)}:{((req.walkMinutes % 1) * 60).toFixed(0).padStart(2, '0')} {t('walkTime')}
+                          {Math.floor(progress.walkMinutes)}:{Math.floor((progress.walkMinutes % 1) * 60).toString().padStart(2, '0')}/{Math.floor(req.walkMinutes)}:{Math.floor((req.walkMinutes % 1) * 60).toString().padStart(2, '0')} {t('walkTime')}
                         </span>
                       </div>
                     )}

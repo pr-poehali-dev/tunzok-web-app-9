@@ -6,6 +6,7 @@ import { SportTracker } from '@/components/SportTracker';
 import { MeditationTracker } from '@/components/MeditationTracker';
 import { ProfileCard } from '@/components/ProfileCard';
 import { CommunityCard } from '@/components/CommunityCard';
+import { t } from '@/lib/i18n';
 
 function Index() {
   const [activeTab, setActiveTab] = useState('home');
@@ -28,10 +29,10 @@ function Index() {
           />
           <div>
             <h1 className="text-4xl font-bold text-foreground mb-2">
-              Tunzok
+              {t('appName')}
             </h1>
             <p className="text-muted-foreground">
-              Улучшение качества жизни: сон, спорт и личные показатели
+              {t('appDescription')}
             </p>
           </div>
         </div>
@@ -40,15 +41,15 @@ function Index() {
           <TabsList className="grid w-full grid-cols-3 mb-8">
             <TabsTrigger value="home" className="transition-all">
               <Icon name="Home" className="mr-2 h-4 w-4" />
-              Главная
+              {t('home')}
             </TabsTrigger>
             <TabsTrigger value="profile" className="transition-all">
               <Icon name="User" className="mr-2 h-4 w-4" />
-              Профиль
+              {t('profile')}
             </TabsTrigger>
             <TabsTrigger value="news" className="transition-all">
               <Icon name="Users" className="mr-2 h-4 w-4" />
-              Сообщество
+              {t('community')}
             </TabsTrigger>
           </TabsList>
 
@@ -70,33 +71,30 @@ function Index() {
         <div className="mt-12 p-6 bg-amber-500/10 border border-amber-500/20 rounded-lg text-center animate-fade-in">
           <Icon name="Info" className="h-6 w-6 text-amber-500 mx-auto mb-3" />
           <h3 className="text-lg font-semibold mb-2 text-amber-600 dark:text-amber-400">
-            Важная информация о подписке
+            {t('subscriptionNoticeTitle')}
           </h3>
           <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
-            Создание подписки — сложный процесс, требующий интеграции с платёжными системами. 
-            В ближайшее время подписки не будет. Все функции, отмеченные как "Tunzok Plus" 
-            (медитация, расширенная аналитика сна), в данный момент находятся в стадии разработки. 
-            Этот блок будет удалён после запуска подписки.
+            {t('subscriptionNoticeText')}
           </p>
         </div>
 
         <footer className="mt-8 pt-6 border-t border-border text-center text-sm text-muted-foreground animate-fade-in">
           <p className="mb-3">
-            Tunzok не является медицинским сервисом. Данные хранятся в браузере пользователя.
+            {t('disclaimer')}
           </p>
           <div className="flex items-center justify-center gap-4">
             <a 
               href="/privacy" 
               className="hover:text-primary transition-colors underline"
             >
-              Политика конфиденциальности
+              {t('privacyPolicy')}
             </a>
             <span>•</span>
             <a 
               href="/terms" 
               className="hover:text-primary transition-colors underline"
             >
-              Пользовательское соглашение
+              {t('terms')}
             </a>
           </div>
         </footer>

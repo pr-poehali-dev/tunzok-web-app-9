@@ -142,6 +142,7 @@ export const translations = {
     walkTime: 'прогулка',
     workoutsCount: 'тренировок',
     achievementUnlocked: 'Достижение получено!',
+    totalRecords: 'Всего записей',
   },
   en: {
     // Header
@@ -284,6 +285,7 @@ export const translations = {
     walkTime: 'walk',
     workoutsCount: 'workouts',
     achievementUnlocked: 'Achievement unlocked!',
+    totalRecords: 'Total records',
   }
 };
 

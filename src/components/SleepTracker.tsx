@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -18,12 +18,17 @@ interface SleepTrackerProps {
 }
 
 export function SleepTracker({ isPlus }: SleepTrackerProps) {
-  const [sleepData, setSleepData] = useState<SleepData | null>(() => {
-    const saved = localStorage.getItem('tunzok_sleep');
-    return saved ? JSON.parse(saved) : null;
-  });
+  const [sleepHistory, setSleepHistory] = useState<SleepData[]>([]);
   const [bedTime, setBedTime] = useState('');
   const [wakeTime, setWakeTime] = useState('');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('tunzok_sleep');
+    if (saved) {
+      const data = JSON.parse(saved);
+      setSleepHistory(Array.isArray(data) ? data : [data]);
+    }
+  }, []);
 
   const calculateDuration = (bed: string, wake: string) => {
     if (!bed || !wake) return '';
@@ -56,8 +61,9 @@ export function SleepTracker({ isPlus }: SleepTrackerProps) {
       date: new Date().toLocaleDateString('ru-RU')
     };
     
-    setSleepData(newSleep);
-    localStorage.setItem('tunzok_sleep', JSON.stringify(newSleep));
+    const updatedHistory = [newSleep, ...sleepHistory].slice(0, 10);
+    setSleepHistory(updatedHistory);
+    localStorage.setItem('tunzok_sleep', JSON.stringify(updatedHistory));
     setBedTime('');
     setWakeTime('');
   };
@@ -103,24 +109,31 @@ export function SleepTracker({ isPlus }: SleepTrackerProps) {
           {t('saveSleepData')}
         </Button>
 
-        {sleepData && (
+        {sleepHistory.length > 0 && (
           <div className="p-4 bg-secondary rounded-lg space-y-2 animate-scale-in">
             <h3 className="font-semibold text-sm text-muted-foreground">{t('lastSleep')}</h3>
             <div className="grid grid-cols-3 gap-4 text-sm">
               <div>
                 <p className="text-muted-foreground">{t('wentToBed')}</p>
-                <p className="font-semibold text-lg">{sleepData.bedTime}</p>
+                <p className="font-semibold text-lg">{sleepHistory[0].bedTime}</p>
               </div>
               <div>
                 <p className="text-muted-foreground">{t('wokeUp')}</p>
-                <p className="font-semibold text-lg">{sleepData.wakeTime}</p>
+                <p className="font-semibold text-lg">{sleepHistory[0].wakeTime}</p>
               </div>
               <div>
                 <p className="text-muted-foreground">{t('sleepDurationLabel')}</p>
-                <p className="font-semibold text-lg text-primary">{sleepData.duration}</p>
+                <p className="font-semibold text-lg text-primary">{sleepHistory[0].duration}</p>
               </div>
             </div>
-            <p className="text-xs text-muted-foreground pt-2">{sleepData.date}</p>
+            <div className="flex items-center justify-between pt-2 border-t">
+              <p className="text-xs text-muted-foreground">{sleepHistory[0].date}</p>
+              {sleepHistory.length > 1 && (
+                <p className="text-xs font-semibold text-primary">
+                  {t('totalRecords')}: {sleepHistory.length}
+                </p>
+              )}
+            </div>
           </div>
         )}
 

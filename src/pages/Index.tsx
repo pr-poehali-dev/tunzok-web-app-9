@@ -28,11 +28,12 @@ function Index() {
             
             <div className="relative flex items-center gap-6">
               <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/30 to-purple-500/30 rounded-full blur-2xl group-hover:blur-3xl transition-all opacity-50"></div>
                 <img 
-                  src="https://cdn.poehali.dev/projects/9918c3bf-a618-46d3-90d5-c97b1c1be5e2/bucket/46f61be7-3133-4039-9532-6f0440915a3a.png" 
+                  src="https://cdn.poehali.dev/projects/9918c3bf-a618-46d3-90d5-c97b1c1be5e2/bucket/d5a51b5c-c948-45ed-8e1d-d82d637a651b.png" 
                   alt="Tunzok Logo" 
-                  className="relative w-28 h-28 object-contain drop-shadow-2xl animate-float group-hover:scale-110 transition-transform"
+                  className="relative w-32 h-32 object-contain drop-shadow-2xl animate-float group-hover:scale-110 transition-transform"
+                  style={{filter: 'drop-shadow(0 0 20px rgba(6, 182, 212, 0.5))'}}
                 />
               </div>
               

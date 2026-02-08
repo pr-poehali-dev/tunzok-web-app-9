@@ -66,9 +66,24 @@ function Index() {
         </Tabs>
 
         <footer className="mt-12 pt-6 border-t border-border text-center text-sm text-muted-foreground animate-fade-in">
-          <p>
+          <p className="mb-3">
             Tunzok не является медицинским сервисом. Данные хранятся в браузере пользователя.
           </p>
+          <div className="flex items-center justify-center gap-4">
+            <a 
+              href="/privacy" 
+              className="hover:text-primary transition-colors underline"
+            >
+              Политика конфиденциальности
+            </a>
+            <span>•</span>
+            <a 
+              href="/terms" 
+              className="hover:text-primary transition-colors underline"
+            >
+              Пользовательское соглашение
+            </a>
+          </div>
         </footer>
       </div>
     </div>

@@ -81,7 +81,52 @@ export const translations = {
     
     // Subscription Notice
     subscriptionNoticeTitle: 'Важная информация о подписке',
-    subscriptionNoticeText: 'Создание подписки — сложный процесс, требующий интеграции с платёжными системами. В ближайшее время подписки не будет. Все функции, отмеченные как "Tunzok Plus" (медитация, расширенная аналитика сна), в данный момент находятся в стадии разработки. Этот блок будет удалён после запуска подписки.',
+    subscriptionNoticeText: 'Создание подписки — сложный процесс, требующий интеграции с платёжными системами. В ближайшее время подписки не будет. Функция расширенной аналитики сна, отмеченная как "Tunzok Plus", в данный момент находится в стадии разработки. Этот блок будет удалён после запуска подписки.',
+    
+    // Sleep Component
+    sleepTitle: 'Сон',
+    sleepDesc: 'Отслеживайте качество вашего сна',
+    bedtimeLabel: 'Время отхода ко сну',
+    wakeTimeLabel: 'Время пробуждения',
+    saveSleepData: 'Сохранить данные о сне',
+    lastSleep: 'Последний сон',
+    wentToBed: 'Лёг спать',
+    wokeUp: 'Проснулся',
+    sleepDurationLabel: 'Длительность',
+    monthlyAnalytics: 'Аналитика за месяц',
+    availableIn: 'Доступно в',
+    sleepAnalyticsChart: 'График аналитики сна',
+    
+    // Sport Component
+    sportTitle: 'Спорт',
+    sportDesc: 'Отслеживайте прогулки и тренировки',
+    walk: 'Прогулка',
+    workout: 'Тренировка',
+    steps: 'Шаги',
+    stepsCount: 'шагов',
+    start: 'Старт',
+    pause: 'Пауза',
+    finish: 'Завершить',
+    walkHistory: 'История прогулок',
+    exercise: 'Упражнение',
+    sets: 'Подходы',
+    reps: 'Повторения',
+    add: 'Добавить',
+    saveWorkout: 'Сохранить тренировку',
+    workoutHistory: 'История тренировок',
+    exercises: 'упражнений',
+    
+    // Community
+    news: 'Новости',
+    latestUpdates: 'Последние обновления Tunzok',
+    officialLaunch: 'Сайт официально запущен!',
+    launchDesc: 'Мы рады сообщить, что Tunzok теперь доступен для всех пользователей. Начните отслеживать свой сон и улучшайте качество жизни уже сегодня!',
+    tunzokTeam: 'Tunzok Team',
+    ourCommunity: 'Наше сообщество',
+    joinSocial: 'Присоединяйтесь к нам в социальных сетях',
+    youtubeDesc: 'Видео о здоровом образе жизни',
+    telegramDesc: 'Новости и общение с командой',
+    contactUs: 'По вопросам обращаться',
   },
   en: {
     // Header
@@ -163,7 +208,52 @@ export const translations = {
     
     // Subscription Notice
     subscriptionNoticeTitle: 'Important Information About Subscription',
-    subscriptionNoticeText: 'Creating a subscription is a complex process that requires integration with payment systems. There will be no subscription in the near future. All features marked as "Tunzok Plus" (meditation, advanced sleep analytics) are currently in development. This block will be removed after subscription launch.',
+    subscriptionNoticeText: 'Creating a subscription is a complex process that requires integration with payment systems. There will be no subscription in the near future. Advanced sleep analytics feature marked as "Tunzok Plus" is currently in development. This block will be removed after subscription launch.',
+    
+    // Sleep Component
+    sleepTitle: 'Sleep',
+    sleepDesc: 'Track your sleep quality',
+    bedtimeLabel: 'Bedtime',
+    wakeTimeLabel: 'Wake time',
+    saveSleepData: 'Save sleep data',
+    lastSleep: 'Last sleep',
+    wentToBed: 'Went to bed',
+    wokeUp: 'Woke up',
+    sleepDurationLabel: 'Duration',
+    monthlyAnalytics: 'Monthly analytics',
+    availableIn: 'Available in',
+    sleepAnalyticsChart: 'Sleep analytics chart',
+    
+    // Sport Component
+    sportTitle: 'Sport',
+    sportDesc: 'Track your walks and workouts',
+    walk: 'Walk',
+    workout: 'Workout',
+    steps: 'Steps',
+    stepsCount: 'steps',
+    start: 'Start',
+    pause: 'Pause',
+    finish: 'Finish',
+    walkHistory: 'Walk history',
+    exercise: 'Exercise',
+    sets: 'Sets',
+    reps: 'Reps',
+    add: 'Add',
+    saveWorkout: 'Save workout',
+    workoutHistory: 'Workout history',
+    exercises: 'exercises',
+    
+    // Community
+    news: 'News',
+    latestUpdates: 'Latest Tunzok Updates',
+    officialLaunch: 'Website officially launched!',
+    launchDesc: 'We are pleased to announce that Tunzok is now available to all users. Start tracking your sleep and improve your quality of life today!',
+    tunzokTeam: 'Tunzok Team',
+    ourCommunity: 'Our Community',
+    joinSocial: 'Join us on social media',
+    youtubeDesc: 'Videos about healthy lifestyle',
+    telegramDesc: 'News and communication with the team',
+    contactUs: 'For inquiries contact',
   }
 };
 

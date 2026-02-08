@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
+import { t } from '@/lib/i18n';
 
 interface MeditationSession {
   date: string;
@@ -13,16 +14,16 @@ interface MeditationTrackerProps {
   isPlus: boolean;
 }
 
-export function MeditationTracker({ isPlus }: MeditationTrackerProps) {
+export function MeditationTracker() {
   const [sessions, setSessions] = useState<MeditationSession[]>([]);
   const [isActive, setIsActive] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [selectedType, setSelectedType] = useState('breathing');
 
-  const meditationTypes: Array<{id: string; name: string; icon: string}> = [
-    { id: 'breathing', name: 'Дыхание', icon: 'Wind' },
-    { id: 'mindfulness', name: 'Осознанность', icon: 'Brain' },
-    { id: 'body-scan', name: 'Сканирование тела', icon: 'Scan' },
+  const meditationTypes: Array<{id: string; nameKey: keyof typeof import('@/lib/i18n').translations.ru; icon: string}> = [
+    { id: 'breathing', nameKey: 'breathing', icon: 'Wind' },
+    { id: 'mindfulness', nameKey: 'mindfulness', icon: 'Brain' },
+    { id: 'body-scan', nameKey: 'bodyScan', icon: 'Scan' },
   ];
 
   useEffect(() => {
@@ -45,7 +46,6 @@ export function MeditationTracker({ isPlus }: MeditationTrackerProps) {
   }, [isActive]);
 
   const startSession = () => {
-    if (!isPlus) return;
     setIsActive(true);
     setSeconds(0);
   };
@@ -76,43 +76,14 @@ export function MeditationTracker({ isPlus }: MeditationTrackerProps) {
     new Date(s.date).toDateString() === new Date().toDateString()
   );
 
-  if (!isPlus) {
-    return (
-      <Card className="transition-all hover:shadow-lg relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-purple-500/5 backdrop-blur-sm z-10" />
-        <div className="absolute inset-0 flex items-center justify-center z-20">
-          <div className="text-center p-6 bg-card/90 backdrop-blur rounded-lg border-2 border-primary/20">
-            <Icon name="Lock" className="h-12 w-12 text-primary mx-auto mb-3" />
-            <h3 className="text-xl font-bold mb-2">Tunzok Plus</h3>
-            <p className="text-sm text-muted-foreground">
-              Медитация доступна только по подписке
-            </p>
-          </div>
-        </div>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 opacity-30">
-            <Icon name="Sparkles" className="h-5 w-5 text-purple-500" />
-            Медитация
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4 opacity-30 blur-sm select-none pointer-events-none">
-          <div className="text-center py-8">
-            <div className="text-6xl font-bold text-primary mb-4">00:00</div>
-            <Button disabled className="w-full">
-              Начать сеанс
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    );
-  }
+
 
   return (
     <Card className="transition-all hover:shadow-lg">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Icon name="Sparkles" className="h-5 w-5 text-purple-500" />
-          Медитация
+          {t('meditation')}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -127,7 +98,7 @@ export function MeditationTracker({ isPlus }: MeditationTrackerProps) {
               className="transition-all"
             >
               <Icon name={type.icon} className="h-4 w-4 mr-1" />
-              {type.name}
+              {t(type.nameKey)}
             </Button>
           ))}
         </div>
@@ -143,7 +114,7 @@ export function MeditationTracker({ isPlus }: MeditationTrackerProps) {
               className="w-full transition-all hover:scale-[1.02]"
             >
               <Icon name="Play" className="mr-2 h-4 w-4" />
-              Начать сеанс
+              {t('startSession')}
             </Button>
           ) : (
             <Button 
@@ -152,21 +123,21 @@ export function MeditationTracker({ isPlus }: MeditationTrackerProps) {
               className="w-full transition-all hover:scale-[1.02]"
             >
               <Icon name="Square" className="mr-2 h-4 w-4" />
-              Завершить
+              {t('stopSession')}
             </Button>
           )}
         </div>
 
         <div className="grid grid-cols-2 gap-4 pt-4 border-t">
           <div className="text-center">
-            <p className="text-sm text-muted-foreground mb-1">Сегодня</p>
+            <p className="text-sm text-muted-foreground mb-1">{t('today')}</p>
             <p className="text-2xl font-bold">{todaySessions.length}</p>
-            <p className="text-xs text-muted-foreground">сеансов</p>
+            <p className="text-xs text-muted-foreground">{t('sessions')}</p>
           </div>
           <div className="text-center">
-            <p className="text-sm text-muted-foreground mb-1">Всего</p>
+            <p className="text-sm text-muted-foreground mb-1">{t('total')}</p>
             <p className="text-2xl font-bold">{Math.floor(totalTime / 60)}</p>
-            <p className="text-xs text-muted-foreground">минут</p>
+            <p className="text-xs text-muted-foreground">{t('minutes')}</p>
           </div>
         </div>
 
@@ -179,7 +150,7 @@ export function MeditationTracker({ isPlus }: MeditationTrackerProps) {
               >
                 <div className="flex items-center gap-2">
                   <Icon name="CheckCircle2" className="h-4 w-4 text-green-500" />
-                  <span>{meditationTypes.find(t => t.id === session.type)?.name}</span>
+                  <span>{t(meditationTypes.find(mt => mt.id === session.type)?.nameKey || 'breathing')}</span>
                 </div>
                 <div className="text-muted-foreground">
                   {formatTime(session.duration)}

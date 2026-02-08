@@ -55,7 +55,7 @@ function Index() {
 
           <TabsContent value="home" className="space-y-6 animate-fade-in">
             <SleepTracker isPlus={isPlus} />
-            <MeditationTracker isPlus={isPlus} />
+            <MeditationTracker />
             <SportTracker />
           </TabsContent>
 

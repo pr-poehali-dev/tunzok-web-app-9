@@ -1,5 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
+import { t } from '@/lib/i18n';
 
 export function CommunityCard() {
   return (
@@ -8,9 +9,9 @@ export function CommunityCard() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Icon name="Sparkles" className="h-5 w-5 text-primary" />
-            Новости
+            {t('news')}
           </CardTitle>
-          <CardDescription>Последние обновления Tunzok</CardDescription>
+          <CardDescription>{t('latestUpdates')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -20,15 +21,15 @@ export function CommunityCard() {
                   <Icon name="Rocket" className="h-5 w-5 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-lg mb-1">Сайт официально запущен!</h3>
+                  <h3 className="font-semibold text-lg mb-1">{t('officialLaunch')}</h3>
                   <p className="text-sm text-muted-foreground mb-3">
-                    Мы рады сообщить, что Tunzok теперь доступен для всех пользователей. Начните отслеживать свой сон и улучшайте качество жизни уже сегодня!
+                    {t('launchDesc')}
                   </p>
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <Icon name="Calendar" className="h-3 w-3" />
                     <span>8 февраля 2026</span>
                     <span>•</span>
-                    <span>Tunzok Team</span>
+                    <span>{t('tunzokTeam')}</span>
                   </div>
                 </div>
               </div>
@@ -41,9 +42,9 @@ export function CommunityCard() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Icon name="Heart" className="h-5 w-5 text-primary" />
-            Наше сообщество
+            {t('ourCommunity')}
           </CardTitle>
-          <CardDescription>Присоединяйтесь к нам в социальных сетях</CardDescription>
+          <CardDescription>{t('joinSocial')}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-3">
@@ -58,7 +59,7 @@ export function CommunityCard() {
               </div>
               <div className="flex-1">
                 <h4 className="font-semibold group-hover:text-primary transition-colors">YouTube</h4>
-                <p className="text-sm text-muted-foreground">Видео о здоровом образе жизни</p>
+                <p className="text-sm text-muted-foreground">{t('youtubeDesc')}</p>
               </div>
               <Icon name="ArrowRight" className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
             </a>
@@ -74,7 +75,7 @@ export function CommunityCard() {
               </div>
               <div className="flex-1">
                 <h4 className="font-semibold group-hover:text-primary transition-colors">Telegram</h4>
-                <p className="text-sm text-muted-foreground">Новости и общение с командой</p>
+                <p className="text-sm text-muted-foreground">{t('telegramDesc')}</p>
               </div>
               <Icon name="ArrowRight" className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
             </a>
@@ -86,7 +87,7 @@ export function CommunityCard() {
                 <Icon name="Mail" className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <h4 className="font-semibold text-sm">По вопросам обращаться</h4>
+                <h4 className="font-semibold text-sm">{t('contactUs')}</h4>
                 <a href="mailto:tunzok@bk.ru" className="text-sm text-primary hover:underline">
                   tunzok@bk.ru
                 </a>

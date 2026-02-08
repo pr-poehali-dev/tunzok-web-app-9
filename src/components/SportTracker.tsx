@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
+import { t } from '@/lib/i18n';
 
 interface WorkoutExercise {
   name: string;
@@ -124,9 +125,9 @@ export function SportTracker() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Icon name="Dumbbell" className="h-5 w-5 text-primary" />
-          Спорт
+          {t('sportTitle')}
         </CardTitle>
-        <CardDescription>Отслеживайте прогулки и тренировки</CardDescription>
+        <CardDescription>{t('sportDesc')}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="flex gap-2">
@@ -136,7 +137,7 @@ export function SportTracker() {
             className="flex-1"
           >
             <Icon name="Footprints" className="mr-2 h-4 w-4" />
-            Прогулка
+            {t('walk')}
           </Button>
           <Button
             variant={sportMode === 'workout' ? 'default' : 'outline'}
@@ -144,7 +145,7 @@ export function SportTracker() {
             className="flex-1"
           >
             <Icon name="Dumbbell" className="mr-2 h-4 w-4" />
-            Тренировка
+            {t('workout')}
           </Button>
         </div>
 
@@ -161,22 +162,22 @@ export function SportTracker() {
                     type="number"
                     value={walkSteps}
                     onChange={(e) => setWalkSteps(parseInt(e.target.value) || 0)}
-                    placeholder="Шаги"
+                    placeholder={t('steps')}
                     className="w-32 text-center"
                     disabled={!isWalking}
                   />
-                  <span className="text-muted-foreground">шагов</span>
+                  <span className="text-muted-foreground">{t('stepsCount')}</span>
                 </div>
                 <div className="flex gap-2 justify-center">
                   {!isWalking ? (
                     <Button onClick={handleStartWalk} className="w-32">
                       <Icon name="Play" className="mr-2 h-4 w-4" />
-                      Старт
+                      {t('start')}
                     </Button>
                   ) : (
                     <Button onClick={handlePauseWalk} variant="outline" className="w-32">
                       <Icon name="Pause" className="mr-2 h-4 w-4" />
-                      Пауза
+                      {t('pause')}
                     </Button>
                   )}
                   <Button 
@@ -186,7 +187,7 @@ export function SportTracker() {
                     className="w-32"
                   >
                     <Icon name="Check" className="mr-2 h-4 w-4" />
-                    Завершить
+                    {t('finish')}
                   </Button>
                 </div>
               </div>
@@ -194,7 +195,7 @@ export function SportTracker() {
 
             {walkHistory.length > 0 && (
               <div className="space-y-2">
-                <h4 className="font-semibold text-sm text-muted-foreground">История прогулок</h4>
+                <h4 className="font-semibold text-sm text-muted-foreground">{t('walkHistory')}</h4>
                 <div className="space-y-2">
                   {walkHistory.slice(0, 5).map((walk, index) => (
                     <div key={index} className="p-3 bg-secondary rounded-lg flex items-center justify-between">
@@ -207,7 +208,7 @@ export function SportTracker() {
                       </div>
                       <div className="text-right">
                         <div className="font-semibold">{walk.steps}</div>
-                        <div className="text-xs text-muted-foreground">шагов</div>
+                        <div className="text-xs text-muted-foreground">{t('stepsCount')}</div>
                       </div>
                     </div>
                   ))}
@@ -222,20 +223,20 @@ export function SportTracker() {
             <div className="space-y-3">
               <div className="grid grid-cols-3 gap-2">
                 <Input
-                  placeholder="Упражнение"
+                  placeholder={t('exercise')}
                   value={exerciseName}
                   onChange={(e) => setExerciseName(e.target.value)}
                   className="col-span-3"
                 />
                 <Input
                   type="number"
-                  placeholder="Подходы"
+                  placeholder={t('sets')}
                   value={exerciseSets}
                   onChange={(e) => setExerciseSets(e.target.value)}
                 />
                 <Input
                   type="number"
-                  placeholder="Повторения"
+                  placeholder={t('reps')}
                   value={exerciseReps}
                   onChange={(e) => setExerciseReps(e.target.value)}
                 />
@@ -250,7 +251,7 @@ export function SportTracker() {
 
             {exercises.length > 0 && (
               <div className="space-y-2">
-                <h4 className="font-semibold text-sm text-muted-foreground">Текущая тренировка</h4>
+                <h4 className="font-semibold text-sm text-muted-foreground">{t('workout')}</h4>
                 <div className="space-y-2">
                   {exercises.map((exercise, index) => (
                     <div key={index} className="p-3 bg-gradient-to-r from-primary/10 to-purple-500/10 rounded-lg flex items-center justify-between border border-primary/20">
@@ -278,20 +279,20 @@ export function SportTracker() {
                   className="w-full"
                 >
                   <Icon name="Check" className="mr-2 h-4 w-4" />
-                  Сохранить тренировку
+                  {t('saveWorkout')}
                 </Button>
               </div>
             )}
 
             {workoutHistory.length > 0 && (
               <div className="space-y-2">
-                <h4 className="font-semibold text-sm text-muted-foreground">История тренировок</h4>
+                <h4 className="font-semibold text-sm text-muted-foreground">{t('workoutHistory')}</h4>
                 <div className="space-y-2">
                   {workoutHistory.slice(0, 3).map((workout, index) => (
                     <div key={index} className="p-3 bg-secondary rounded-lg">
                       <div className="flex items-center justify-between mb-2">
                         <div className="text-xs text-muted-foreground">{workout.date}</div>
-                        <div className="text-xs text-muted-foreground">{workout.exercises.length} упражнений</div>
+                        <div className="text-xs text-muted-foreground">{workout.exercises.length} {t('exercises')}</div>
                       </div>
                       <div className="space-y-1">
                         {workout.exercises.map((exercise, i) => (

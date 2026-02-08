@@ -21,19 +21,30 @@ function Index() {
       </div>
       
       <div className="container max-w-4xl mx-auto px-4 py-8 relative z-10">
-        <div className="mb-8 animate-fade-in flex items-center gap-6">
-          <img 
-            src="https://cdn.poehali.dev/projects/9918c3bf-a618-46d3-90d5-c97b1c1be5e2/bucket/46f61be7-3133-4039-9532-6f0440915a3a.png" 
-            alt="Tunzok Logo" 
-            className="w-24 h-24 object-contain drop-shadow-2xl animate-float"
-          />
-          <div>
-            <h1 className="text-4xl font-bold text-foreground mb-2">
-              {t('appName')}
-            </h1>
-            <p className="text-muted-foreground">
-              {t('appDescription')}
-            </p>
+        <div className="mb-12 animate-fade-in">
+          <div className="relative bg-gradient-to-br from-primary/5 via-purple-500/5 to-cyan-500/5 backdrop-blur-sm border border-primary/10 rounded-3xl p-8 shadow-2xl overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-cyan-500/10 to-purple-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-primary/10 to-pink-500/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
+            
+            <div className="relative flex items-center gap-6">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
+                <img 
+                  src="https://cdn.poehali.dev/projects/9918c3bf-a618-46d3-90d5-c97b1c1be5e2/bucket/46f61be7-3133-4039-9532-6f0440915a3a.png" 
+                  alt="Tunzok Logo" 
+                  className="relative w-28 h-28 object-contain drop-shadow-2xl animate-float group-hover:scale-110 transition-transform"
+                />
+              </div>
+              
+              <div className="flex-1">
+                <h1 className="text-5xl font-bold bg-gradient-to-r from-primary via-purple-500 to-cyan-500 bg-clip-text text-transparent mb-3 tracking-tight">
+                  {t('appName')}
+                </h1>
+                <p className="text-muted-foreground text-lg">
+                  {t('appDescription')}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 

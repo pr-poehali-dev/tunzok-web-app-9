@@ -115,6 +115,12 @@ export const translations = {
     saveWorkout: 'Сохранить тренировку',
     workoutHistory: 'История тренировок',
     exercises: 'упражнений',
+    inhale: 'Вдох',
+    hold: 'Задержка',
+    exhale: 'Выдох',
+    rest: 'Отдых',
+    focusNow: 'Сфокусируйтесь',
+    relaxBody: 'Расслабьте тело',
     
     // Community
     news: 'Новости',
@@ -242,6 +248,12 @@ export const translations = {
     saveWorkout: 'Save workout',
     workoutHistory: 'Workout history',
     exercises: 'exercises',
+    inhale: 'Inhale',
+    hold: 'Hold',
+    exhale: 'Exhale',
+    rest: 'Rest',
+    focusNow: 'Focus now',
+    relaxBody: 'Relax body',
     
     // Community
     news: 'News',

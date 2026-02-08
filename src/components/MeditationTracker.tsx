@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
@@ -19,6 +19,9 @@ export function MeditationTracker() {
   const [isActive, setIsActive] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [selectedType, setSelectedType] = useState('breathing');
+  const [breathPhase, setBreathPhase] = useState<'inhale' | 'hold' | 'exhale' | 'rest'>('inhale');
+  const [phaseTimer, setPhaseTimer] = useState(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const meditationTypes: Array<{id: string; nameKey: keyof typeof import('@/lib/i18n').translations.ru; icon: string}> = [
     { id: 'breathing', nameKey: 'breathing', icon: 'Wind' },
@@ -45,13 +48,51 @@ export function MeditationTracker() {
     };
   }, [isActive]);
 
+  useEffect(() => {
+    if (!isActive || selectedType !== 'breathing') return;
+
+    const phases: Array<{phase: 'inhale' | 'hold' | 'exhale' | 'rest'; duration: number}> = [
+      { phase: 'inhale', duration: 4 },
+      { phase: 'hold', duration: 7 },
+      { phase: 'exhale', duration: 8 },
+      { phase: 'rest', duration: 2 },
+    ];
+
+    let currentPhaseIndex = 0;
+    let timer = 0;
+
+    const interval = setInterval(() => {
+      timer++;
+      setPhaseTimer(timer);
+
+      if (timer >= phases[currentPhaseIndex].duration) {
+        playSound();
+        currentPhaseIndex = (currentPhaseIndex + 1) % phases.length;
+        setBreathPhase(phases[currentPhaseIndex].phase);
+        timer = 0;
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isActive, selectedType]);
+
+  const playSound = () => {
+    const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZSA0PVKvi7q1aFgpDmuDywmweBTSJ0vPVgywEI3fH8N+RQQoUXrTp66lWFApGnt/zvmwhBTGH0fPTgjQGHm7A7+OZSA0PVKvi7q1aFgpDmuDywmweBTSJ0vPVhCwEI3fH8N+RQgoTXrTp66lWFApGnt/zvmwhBTGH0fPTgjQGHm7A7+OZSA0PVKvi7q1aFgpDmuDywmweBTSJ0vPVhCwEI3fH8N+RQgoTXrTp66lWFApGnt/zvmwhBTGH0fPTgjQGHm7A7+OZSA0PVKvi7q1aFgpDmuDywmweBTSJ0vPVhCwEI3fH8N+RQgoTXrTp66lWFApGnt/zvmwhBTGH0fPTgjQGHm7A7+OZSA0PVKvi7q1aFgpDmuDywmweBTSJ0vPVhCwEI3fH8N+RQgoTXrTp66lWFApGnt/zvmwhBTGH0fPTgjQGHm7A7+OZSA0PVKvi7q1aFgpDmuDywmweBTSJ0vPVhCwEI3fH8N+RQgoTXrTp66lWFApGnt/zvmwhBTGH0fPTgjQGHm7A7+OZSA0PVKvi7q1aFgo=');
+    audio.volume = 0.3;
+    audio.play().catch(() => {});
+  };
+
   const startSession = () => {
     setIsActive(true);
     setSeconds(0);
+    setBreathPhase('inhale');
+    setPhaseTimer(0);
+    playSound();
   };
 
   const stopSession = () => {
     setIsActive(false);
+    playSound();
     if (seconds > 0) {
       const newSession: MeditationSession = {
         date: new Date().toISOString(),
@@ -103,8 +144,44 @@ export function MeditationTracker() {
           ))}
         </div>
 
-        <div className="text-center py-8">
-          <div className="text-6xl font-bold text-primary mb-4 transition-all">
+        <div className="text-center py-8 relative">
+          {isActive && selectedType === 'breathing' && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div 
+                className={`text-4xl font-bold transition-all duration-1000 ${
+                  breathPhase === 'inhale' ? 'text-blue-500 scale-110' :
+                  breathPhase === 'hold' ? 'text-purple-500 scale-100' :
+                  breathPhase === 'exhale' ? 'text-green-500 scale-90' :
+                  'text-gray-400 scale-95'
+                }`}
+              >
+                {breathPhase === 'inhale' && '🌬️ ' + t('inhale')}
+                {breathPhase === 'hold' && '⏸️ ' + t('hold')}
+                {breathPhase === 'exhale' && '💨 ' + t('exhale')}
+                {breathPhase === 'rest' && '✨ ' + t('rest')}
+              </div>
+            </div>
+          )}
+
+          {isActive && selectedType === 'mindfulness' && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-3xl animate-pulse text-purple-500">
+                🧘 {t('focusNow')}
+              </div>
+            </div>
+          )}
+
+          {isActive && selectedType === 'body-scan' && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-3xl animate-pulse text-blue-500">
+                🌊 {t('relaxBody')}
+              </div>
+            </div>
+          )}
+
+          <div className={`text-6xl font-bold mb-4 transition-all ${
+            isActive ? 'text-muted-foreground opacity-50' : 'text-primary'
+          }`}>
             {formatTime(seconds)}
           </div>
           

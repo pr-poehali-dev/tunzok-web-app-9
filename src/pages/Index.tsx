@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Icon from '@/components/ui/icon';
 import { SleepTracker } from '@/components/SleepTracker';
 import { SportTracker } from '@/components/SportTracker';
+import { MeditationTracker } from '@/components/MeditationTracker';
 import { ProfileCard } from '@/components/ProfileCard';
 import { CommunityCard } from '@/components/CommunityCard';
 
@@ -53,6 +54,7 @@ function Index() {
 
           <TabsContent value="home" className="space-y-6 animate-fade-in">
             <SleepTracker isPlus={isPlus} />
+            <MeditationTracker isPlus={isPlus} />
             <SportTracker />
           </TabsContent>
 
@@ -65,7 +67,20 @@ function Index() {
           </TabsContent>
         </Tabs>
 
-        <footer className="mt-12 pt-6 border-t border-border text-center text-sm text-muted-foreground animate-fade-in">
+        <div className="mt-12 p-6 bg-amber-500/10 border border-amber-500/20 rounded-lg text-center animate-fade-in">
+          <Icon name="Info" className="h-6 w-6 text-amber-500 mx-auto mb-3" />
+          <h3 className="text-lg font-semibold mb-2 text-amber-600 dark:text-amber-400">
+            Важная информация о подписке
+          </h3>
+          <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+            Создание подписки — сложный процесс, требующий интеграции с платёжными системами. 
+            В ближайшее время подписки не будет. Все функции, отмеченные как "Tunzok Plus" 
+            (медитация, расширенная аналитика сна), в данный момент находятся в стадии разработки. 
+            Этот блок будет удалён после запуска подписки.
+          </p>
+        </div>
+
+        <footer className="mt-8 pt-6 border-t border-border text-center text-sm text-muted-foreground animate-fade-in">
           <p className="mb-3">
             Tunzok не является медицинским сервисом. Данные хранятся в браузере пользователя.
           </p>

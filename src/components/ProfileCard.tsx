@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Icon from '@/components/ui/icon';
 
 interface ProfileData {
@@ -12,6 +13,7 @@ interface ProfileData {
   weight: string;
   age: string;
   note: string;
+  language: string;
 }
 
 export function ProfileCard() {
@@ -20,7 +22,8 @@ export function ProfileCard() {
     height: '',
     weight: '',
     age: '',
-    note: ''
+    note: '',
+    language: 'ru'
   });
 
   useEffect(() => {
@@ -99,6 +102,19 @@ export function ProfileCard() {
             placeholder="Расскажите о себе..."
             className="min-h-24 transition-all focus:scale-[1.01]"
           />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="language">Язык интерфейса</Label>
+          <Select value={profile.language} onValueChange={(value) => setProfile({...profile, language: value})}>
+            <SelectTrigger className="transition-all focus:scale-[1.01]">
+              <SelectValue placeholder="Выберите язык" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ru">🇷🇺 Русский</SelectItem>
+              <SelectItem value="en">🇬🇧 English</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <Button 

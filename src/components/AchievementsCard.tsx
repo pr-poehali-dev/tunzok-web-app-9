@@ -51,7 +51,7 @@ export function AchievementsCard() {
 
   const [unlockedAchievements, setUnlockedAchievements] = useState<Set<string>>(new Set());
 
-  useEffect(() => {
+  const checkProgress = () => {
     const sleepData = localStorage.getItem('tunzok_sleep');
     const sleeps = sleepData ? JSON.parse(sleepData).length : 0;
 
@@ -108,6 +108,25 @@ export function AchievementsCard() {
         console.log(`🎉 Achievement "${achievement.id}" unlocked!`);
       }
     });
+  };
+
+  useEffect(() => {
+    checkProgress();
+
+    const handleStorageChange = () => {
+      checkProgress();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    const interval = setInterval(() => {
+      checkProgress();
+    }, 2000);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      clearInterval(interval);
+    };
   }, []);
 
   const isAchievementUnlocked = (achievement: Achievement, prog: AchievementProgress): boolean => {

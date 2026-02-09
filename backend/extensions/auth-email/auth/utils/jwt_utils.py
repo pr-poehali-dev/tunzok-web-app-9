@@ -50,6 +50,17 @@ def decode_refresh_token(token: str) -> dict | None:
         return None
 
 
+def verify_access_token(token: str) -> dict:
+    """Decode and validate access token. Raises exception on failure."""
+    payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+    if payload.get('type') != 'access':
+        raise jwt.InvalidTokenError('Invalid token type')
+    return {
+        'user_id': int(payload.get('sub')),
+        'email': payload.get('email')
+    }
+
+
 def hash_token(token: str) -> str:
     """Hash token for storage."""
     return hashlib.sha256(token.encode()).hexdigest()

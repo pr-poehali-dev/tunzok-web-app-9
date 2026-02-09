@@ -238,7 +238,7 @@ export function AchievementsCard() {
                     )}
                     {req.walkMinutes && (
                       <div className="flex items-center gap-1.5">
-                        <Icon name="FootprintsIcon" className="h-3.5 w-3.5 text-green-500" />
+                        <Icon name="Footprints" className="h-3.5 w-3.5 text-green-500" />
                         <span className={progress.walkMinutes >= req.walkMinutes ? 'text-green-500 font-semibold' : 'text-muted-foreground'}>
                           {Math.floor(progress.walkMinutes)}:{Math.floor((progress.walkMinutes % 1) * 60).toString().padStart(2, '0')}/{Math.floor(req.walkMinutes)}:{Math.floor((req.walkMinutes % 1) * 60).toString().padStart(2, '0')} {t('walkTime')}
                         </span>

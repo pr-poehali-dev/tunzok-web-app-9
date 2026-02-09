@@ -7,12 +7,16 @@ import { MeditationTracker } from '@/components/MeditationTracker';
 import { ProfileCard } from '@/components/ProfileCard';
 import { CommunityCard } from '@/components/CommunityCard';
 import { t } from '@/lib/i18n';
+import AuthGate from '@/components/AuthGate';
+import type { User } from '@/components/extensions/auth-email/useAuth';
 
 function Index() {
   const [activeTab, setActiveTab] = useState('home');
   const [isPlus] = useState(false);
 
   return (
+    <AuthGate>
+      {(user: User, logout: () => void) => (
     <div className="min-h-screen bg-background relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse-slow"></div>
@@ -72,7 +76,7 @@ function Index() {
           </TabsContent>
 
           <TabsContent value="profile" className="animate-fade-in">
-            <ProfileCard />
+            <ProfileCard user={user} onLogout={logout} />
           </TabsContent>
 
           <TabsContent value="news" className="animate-fade-in">
@@ -112,6 +116,8 @@ function Index() {
         </footer>
       </div>
     </div>
+      )}
+    </AuthGate>
   );
 }
 

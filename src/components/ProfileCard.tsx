@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import Icon from '@/components/ui/icon';
 import { t } from '@/lib/i18n';
 import { AchievementsCard } from './AchievementsCard';
+import type { User } from './extensions/auth-email/useAuth';
 
 interface ProfileData {
   name: string;
@@ -18,7 +19,12 @@ interface ProfileData {
   language: string;
 }
 
-export function ProfileCard() {
+interface ProfileCardProps {
+  user?: User;
+  onLogout?: () => void;
+}
+
+export function ProfileCard({ user, onLogout }: ProfileCardProps) {
   const [profile, setProfile] = useState<ProfileData>({
     name: '',
     height: '',
@@ -32,8 +38,10 @@ export function ProfileCard() {
     const savedProfile = localStorage.getItem('tunzok_profile');
     if (savedProfile) {
       setProfile(JSON.parse(savedProfile));
+    } else if (user) {
+      setProfile(prev => ({ ...prev, name: user.name || user.email }));
     }
-  }, []);
+  }, [user]);
 
   const handleSaveProfile = () => {
     localStorage.setItem('tunzok_profile', JSON.stringify(profile));
@@ -42,6 +50,21 @@ export function ProfileCard() {
 
   return (
     <div className="space-y-6">
+    {user && (
+      <Card className="bg-gradient-to-br from-primary/5 to-purple-500/5 border-primary/20">
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-purple-500 flex items-center justify-center text-white text-2xl font-bold">
+              {(user.name || user.email)[0].toUpperCase()}
+            </div>
+            <div>
+              <h3 className="text-xl font-bold">{user.name || 'Пользователь'}</h3>
+              <p className="text-sm text-muted-foreground">{user.email}</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    )}
     <Card className="transition-all hover:shadow-lg">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
@@ -121,12 +144,23 @@ export function ProfileCard() {
           </Select>
         </div>
 
-        <Button 
-          onClick={handleSaveProfile} 
-          className="w-full transition-all hover:scale-[1.02]"
-        >
-          {t('saveProfile')}
-        </Button>
+        <div className="flex gap-3">
+          <Button 
+            onClick={handleSaveProfile} 
+            className="flex-1 transition-all hover:scale-[1.02]"
+          >
+            {t('saveProfile')}
+          </Button>
+          {user && onLogout && (
+            <Button 
+              onClick={onLogout}
+              variant="outline"
+              className="transition-all hover:scale-[1.02]"
+            >
+              <Icon name="LogOut" className="h-4 w-4" />
+            </Button>
+          )}
+        </div>
       </CardContent>
     </Card>
 

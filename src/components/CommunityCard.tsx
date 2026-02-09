@@ -15,19 +15,20 @@ export function CommunityCard() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            <div className="p-4 bg-gradient-to-br from-primary/10 to-purple-500/10 rounded-lg border border-primary/20">
+            <div className="p-4 bg-gradient-to-br from-amber-500/10 to-orange-500/10 rounded-lg border border-amber-500/20">
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Icon name="Rocket" className="h-5 w-5 text-primary" />
+                <div className="w-10 h-10 bg-amber-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Icon name="Construction" className="h-5 w-5 text-amber-500" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-lg mb-1">{t('officialLaunch')}</h3>
+                  <h3 className="font-semibold text-lg mb-1">Масштабное обновление!</h3>
                   <p className="text-sm text-muted-foreground mb-3">
-                    {t('launchDesc')}
+                    Скоро на сайте будет проведено большое обновление, связанное с запуском подписки Tunzok Premium. 
+                    Во время обновления сайт будет временно недоступен. Следите за новостями в наших социальных сетях!
                   </p>
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <Icon name="Calendar" className="h-3 w-3" />
-                    <span>8 февраля 2026</span>
+                    <span>10 февраля 2026</span>
                     <span>•</span>
                     <span>{t('tunzokTeam')}</span>
                   </div>

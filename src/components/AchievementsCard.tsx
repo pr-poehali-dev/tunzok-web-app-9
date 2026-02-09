@@ -138,6 +138,11 @@ export function AchievementsCard() {
   }, []);
 
   const isAchievementUnlocked = (achievement: Achievement, prog: AchievementProgress): boolean => {
+    if (achievement.id === 'prestige') {
+      const hasPremium = localStorage.getItem('tunzok_premium_subscription') === 'active';
+      return hasPremium;
+    }
+    
     const req = achievement.requirements;
     return (
       (!req.sleeps || prog.sleeps >= req.sleeps) &&
@@ -216,7 +221,7 @@ export function AchievementsCard() {
                 </div>
               </div>
 
-              {!isUnlocked && (
+              {!isUnlocked && achievement.id !== 'prestige' && (
                 <div className="space-y-3">
                   <Progress value={progressPercent} className="h-2" />
                   <div className="grid grid-cols-2 gap-2 text-xs">

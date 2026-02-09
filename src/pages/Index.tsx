@@ -97,43 +97,43 @@ function Index() {
 
           <TabsContent value="profile" className="animate-fade-in">
             <ProfileCard user={user} onLogout={logout} />
+            
+            <div className="mt-6 p-8 bg-gradient-to-br from-primary/10 via-purple-500/10 to-cyan-500/10 border-2 border-primary/20 rounded-2xl text-center animate-fade-in shadow-lg">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <Icon name="Sparkles" className="h-8 w-8 text-primary" />
+                <h3 className="text-2xl font-bold bg-gradient-to-r from-primary via-purple-500 to-cyan-500 bg-clip-text text-transparent">
+                  Tunzok Premium
+                </h3>
+              </div>
+              <p className="text-lg font-semibold mb-4">279₽ в месяц</p>
+              <div className="max-w-md mx-auto text-left space-y-3 mb-6">
+                <div className="flex items-start gap-2">
+                  <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                  <p className="text-sm">Доступ к подробной аналитике сна за месяц</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                  <p className="text-sm">Возможность поставить любой таймер для комфортной медитации</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                  <p className="text-sm">Выполнение достижения "Престиж"</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                  <p className="text-sm">Доступ к карточке "Здоровое питание"</p>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground mb-4">
+                Подписка находится на стадии тестирования и сейчас недоступна
+              </p>
+            </div>
           </TabsContent>
 
           <TabsContent value="news" className="animate-fade-in">
             <CommunityCard />
           </TabsContent>
         </Tabs>
-
-        <div className="mt-12 p-8 bg-gradient-to-br from-primary/10 via-purple-500/10 to-cyan-500/10 border-2 border-primary/20 rounded-2xl text-center animate-fade-in shadow-lg">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Icon name="Sparkles" className="h-8 w-8 text-primary" />
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-primary via-purple-500 to-cyan-500 bg-clip-text text-transparent">
-              Tunzok Premium
-            </h3>
-          </div>
-          <p className="text-lg font-semibold mb-4">279₽ в месяц</p>
-          <div className="max-w-md mx-auto text-left space-y-3 mb-6">
-            <div className="flex items-start gap-2">
-              <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-              <p className="text-sm">Доступ к подробной аналитике сна за месяц</p>
-            </div>
-            <div className="flex items-start gap-2">
-              <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-              <p className="text-sm">Возможность поставить любой таймер для комфортной медитации</p>
-            </div>
-            <div className="flex items-start gap-2">
-              <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-              <p className="text-sm">Выполнение достижения "Престиж"</p>
-            </div>
-            <div className="flex items-start gap-2">
-              <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-              <p className="text-sm">Доступ к карточке "Здоровое питание"</p>
-            </div>
-          </div>
-          <p className="text-xs text-muted-foreground mb-4">
-            Подписка находится на стадии тестирования и сейчас недоступна
-          </p>
-        </div>
 
         <footer className="mt-8 pt-6 border-t border-border text-center text-sm text-muted-foreground animate-fade-in">
           <p className="mb-3">

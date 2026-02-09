@@ -73,6 +73,26 @@ function Index() {
             <SleepTracker isPlus={isPlus} />
             <MeditationTracker />
             <SportTracker />
+            
+            {/* Здоровое питание - заглушка */}
+            <div className="relative">
+              <div className="p-6 bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-lg blur-sm">
+                <div className="flex items-center gap-3 mb-4">
+                  <Icon name="Apple" className="h-8 w-8 text-green-500" />
+                  <h2 className="text-2xl font-bold">Здоровое питание</h2>
+                </div>
+                <p className="text-muted-foreground">Отслеживайте калории и полезные продукты</p>
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="bg-card/95 backdrop-blur-sm p-6 rounded-lg border border-green-500/50 shadow-xl text-center space-y-3 max-w-sm">
+                  <Icon name="Lock" className="h-8 w-8 mx-auto text-green-500" />
+                  <h4 className="font-semibold text-lg">Доступно в Tunzok Premium</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Подписка находится на стадии тестирования и сейчас недоступна
+                  </p>
+                </div>
+              </div>
+            </div>
           </TabsContent>
 
           <TabsContent value="profile" className="animate-fade-in">
@@ -84,13 +104,34 @@ function Index() {
           </TabsContent>
         </Tabs>
 
-        <div className="mt-12 p-6 bg-amber-500/10 border border-amber-500/20 rounded-lg text-center animate-fade-in">
-          <Icon name="Info" className="h-6 w-6 text-amber-500 mx-auto mb-3" />
-          <h3 className="text-lg font-semibold mb-2 text-amber-600 dark:text-amber-400">
-            {t('subscriptionNoticeTitle')}
-          </h3>
-          <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
-            {t('subscriptionNoticeText')}
+        <div className="mt-12 p-8 bg-gradient-to-br from-primary/10 via-purple-500/10 to-cyan-500/10 border-2 border-primary/20 rounded-2xl text-center animate-fade-in shadow-lg">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Icon name="Sparkles" className="h-8 w-8 text-primary" />
+            <h3 className="text-2xl font-bold bg-gradient-to-r from-primary via-purple-500 to-cyan-500 bg-clip-text text-transparent">
+              Tunzok Premium
+            </h3>
+          </div>
+          <p className="text-lg font-semibold mb-4">279₽ в месяц</p>
+          <div className="max-w-md mx-auto text-left space-y-3 mb-6">
+            <div className="flex items-start gap-2">
+              <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <p className="text-sm">Доступ к подробной аналитике сна за месяц</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <p className="text-sm">Возможность поставить любой таймер для комфортной медитации</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <p className="text-sm">Выполнение достижения "Престиж"</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <p className="text-sm">Доступ к карточке "Здоровое питание"</p>
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground mb-4">
+            Подписка находится на стадии тестирования и сейчас недоступна
           </p>
         </div>
 

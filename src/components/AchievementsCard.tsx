@@ -39,6 +39,14 @@ const achievements: Achievement[] = [
       workouts: 1,
     },
   },
+  {
+    id: 'prestige',
+    nameKey: 'achievementPrestigeName',
+    descKey: 'achievementPrestigeDesc',
+    icon: 'Crown',
+    color: 'from-yellow-400 to-amber-500',
+    requirements: {},
+  },
 ];
 
 export function AchievementsCard() {

@@ -152,7 +152,7 @@ export function SleepTracker({ isPlus }: SleepTrackerProps) {
                 <Icon name="Lock" className="h-8 w-8 mx-auto text-primary" />
                 <h4 className="font-semibold text-lg">{t('monthlyAnalytics')}</h4>
                 <p className="text-sm text-muted-foreground">
-                  {t('availableIn')} <span className="text-primary font-semibold">{t('tunzokPlus')}</span>
+                  {t('availableIn')} <span className="text-primary font-semibold">{t('tunzokPremium')}</span>
                 </p>
               </div>
             </div>

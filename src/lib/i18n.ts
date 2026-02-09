@@ -38,7 +38,7 @@ export const translations = {
     total: 'Всего',
     minutes: 'минут',
     plusRequired: 'Медитация доступна только по подписке',
-    tunzokPlus: 'Tunzok Plus',
+    tunzokPremium: 'Tunzok Premium',
     
     // Sport Tracker
     sportTracker: 'Трекер спорта',
@@ -81,7 +81,7 @@ export const translations = {
     
     // Subscription Notice
     subscriptionNoticeTitle: 'Важная информация о подписке',
-    subscriptionNoticeText: 'Создание подписки — сложный процесс, требующий интеграции с платёжными системами. В ближайшее время подписки не будет. Функция расширенной аналитики сна, отмеченная как "Tunzok Plus", в данный момент находится в стадии разработки. Этот блок будет удалён после запуска подписки.',
+    subscriptionNoticeText: 'Создание подписки — сложный процесс, требующий интеграции с платёжными системами. В ближайшее время подписки не будет. Функция расширенной аналитики сна, отмеченная как "Tunzok Premium", в данный момент находится в стадии разработки. Этот блок будет удалён после запуска подписки.',
     
     // Sleep Component
     sleepTitle: 'Сон',
@@ -137,6 +137,8 @@ export const translations = {
     
     achievementBeginnerName: 'Новичок',
     achievementBeginnerDesc: 'Ну теперь я знаю, как тут всё устроено',
+    achievementPrestigeName: 'Престиж',
+    achievementPrestigeDesc: 'Эксклюзивное достижение для подписчиков Tunzok Premium',
     sleepDataCount: 'снов',
     meditationTypesCount: 'видов',
     walkTime: 'прогулка',
@@ -181,7 +183,7 @@ export const translations = {
     total: 'Total',
     minutes: 'minutes',
     plusRequired: 'Meditation available with subscription only',
-    tunzokPlus: 'Tunzok Plus',
+    tunzokPremium: 'Tunzok Premium',
     
     // Sport Tracker
     sportTracker: 'Sport Tracker',
@@ -224,7 +226,7 @@ export const translations = {
     
     // Subscription Notice
     subscriptionNoticeTitle: 'Important Information About Subscription',
-    subscriptionNoticeText: 'Creating a subscription is a complex process that requires integration with payment systems. There will be no subscription in the near future. Advanced sleep analytics feature marked as "Tunzok Plus" is currently in development. This block will be removed after subscription launch.',
+    subscriptionNoticeText: 'Creating a subscription is a complex process that requires integration with payment systems. There will be no subscription in the near future. Advanced sleep analytics feature marked as "Tunzok Premium" is currently in development. This block will be removed after subscription launch.',
     
     // Sleep Component
     sleepTitle: 'Sleep',
@@ -280,6 +282,8 @@ export const translations = {
     
     achievementBeginnerName: 'Beginner',
     achievementBeginnerDesc: 'Now I know how everything works here',
+    achievementPrestigeName: 'Prestige',
+    achievementPrestigeDesc: 'Exclusive achievement for Tunzok Premium subscribers',
     sleepDataCount: 'sleeps',
     meditationTypesCount: 'types',
     walkTime: 'walk',

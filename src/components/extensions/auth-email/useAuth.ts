@@ -56,6 +56,7 @@ interface AuthApiUrls {
   refresh: string;
   logout: string;
   resetPassword: string;
+  deleteAccount: string;
 }
 
 interface UseAuthOptions {
@@ -78,7 +79,8 @@ interface UseAuthReturn {
   refreshToken: () => Promise<boolean>;
   requestPasswordReset: (email: string) => Promise<{ code?: string }>;
   resetPassword: (email: string, code: string, newPassword: string) => Promise<boolean>;
-  getAuthHeader: () => { Authorization: string } | {};
+  deleteAccount: () => Promise<boolean>;
+  getAuthHeader: () => { Authorization: string } | Record<string, never>;
 }
 
 // ============================================================================
@@ -402,6 +404,35 @@ export function useAuth(options: UseAuthOptions): UseAuthReturn {
   );
 
   /**
+   * Delete account permanently
+   */
+  const deleteAccount = useCallback(async (): Promise<boolean> => {
+    if (!accessToken) return false;
+
+    try {
+      const response = await fetch(apiUrls.deleteAccount, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        setError(data.error || "Ошибка удаления аккаунта");
+        return false;
+      }
+
+      clearAuth();
+      return true;
+    } catch {
+      setError("Ошибка сети");
+      return false;
+    }
+  }, [apiUrls.deleteAccount, accessToken, clearAuth]);
+
+  /**
    * Get Authorization header for API requests
    */
   const getAuthHeader = useCallback(() => {
@@ -419,6 +450,7 @@ export function useAuth(options: UseAuthOptions): UseAuthReturn {
     register,
     verifyEmail,
     logout,
+    deleteAccount,
     refreshToken: refreshTokenFn,
     requestPasswordReset,
     resetPassword,

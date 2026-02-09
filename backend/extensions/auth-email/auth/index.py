@@ -8,9 +8,10 @@ Routes (via ?action= query parameter):
   POST /auth?action=refresh        - Refresh access token
   POST /auth?action=logout         - Logout and revoke tokens
   POST /auth?action=reset-password - Request/complete password reset
+  POST /auth?action=delete-account - Delete user account
   GET  /auth?action=health         - Check DB schema
 """
-from handlers import register, login, logout, refresh, reset_password, health, verify_email
+from handlers import register, login, logout, refresh, reset_password, health, verify_email, delete_account
 from utils.http import options_response, error, get_origin_from_event
 
 
@@ -22,6 +23,7 @@ ROUTES = {
     'reset-password': reset_password.handle,
     'health': health.handle,
     'verify-email': verify_email.handle,
+    'delete-account': delete_account.handle,
 }
 
 # Actions that allow GET method
@@ -48,6 +50,6 @@ def handler(event: dict, context) -> dict:
         return error(405, 'Method not allowed', origin)
 
     if not action or action not in ROUTES:
-        return error(404, f'Unknown action: {action}. Use ?action=health|login|register|refresh|logout|reset-password|verify-email', origin)
+        return error(404, f'Unknown action: {action}. Use ?action=health|login|register|refresh|logout|reset-password|verify-email|delete-account', origin)
 
     return ROUTES[action](event, origin)

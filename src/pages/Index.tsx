@@ -16,7 +16,7 @@ function Index() {
 
   return (
     <AuthGate>
-      {(user: User, logout: () => void) => (
+      {(user: User, logout: () => void, deleteAccount: () => Promise<boolean>) => (
     <div className="min-h-screen bg-background relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse-slow"></div>
@@ -96,7 +96,7 @@ function Index() {
           </TabsContent>
 
           <TabsContent value="profile" className="animate-fade-in">
-            <ProfileCard user={user} onLogout={logout} />
+            <ProfileCard user={user} onLogout={logout} onDeleteAccount={deleteAccount} />
             
             <div className="mt-6 p-8 bg-gradient-to-br from-primary/10 via-purple-500/10 to-cyan-500/10 border-2 border-primary/20 rounded-2xl text-center animate-fade-in shadow-lg">
               <div className="flex items-center justify-center gap-3 mb-4">

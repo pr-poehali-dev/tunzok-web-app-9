@@ -6,7 +6,7 @@ import RegisterForm from './extensions/auth-email/RegisterForm';
 const AUTH_URL = 'https://functions.poehali.dev/75ed3b02-b0e8-4393-87f3-d0daa20914f5';
 
 interface AuthGateProps {
-  children: (user: User, logout: () => void) => React.ReactNode;
+  children: (user: User, logout: () => void, deleteAccount: () => Promise<boolean>) => React.ReactNode;
 }
 
 export default function AuthGate({ children }: AuthGateProps) {
@@ -21,6 +21,7 @@ export default function AuthGate({ children }: AuthGateProps) {
       refresh: `${AUTH_URL}?action=refresh`,
       logout: `${AUTH_URL}?action=logout`,
       resetPassword: `${AUTH_URL}?action=reset-password`,
+      deleteAccount: `${AUTH_URL}?action=delete-account`,
     },
   });
 
@@ -36,7 +37,7 @@ export default function AuthGate({ children }: AuthGateProps) {
   }
 
   if (auth.isAuthenticated && auth.user) {
-    return <>{children(auth.user, auth.logout)}</>;
+    return <>{children(auth.user, auth.logout, auth.deleteAccount)}</>;
   }
 
   return (

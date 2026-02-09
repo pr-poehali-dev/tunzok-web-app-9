@@ -5,6 +5,14 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
 import { t } from '@/lib/i18n';
 import { AchievementsCard } from './AchievementsCard';
@@ -22,9 +30,12 @@ interface ProfileData {
 interface ProfileCardProps {
   user?: User;
   onLogout?: () => void;
+  onDeleteAccount?: () => Promise<boolean>;
 }
 
-export function ProfileCard({ user, onLogout }: ProfileCardProps) {
+export function ProfileCard({ user, onLogout, onDeleteAccount }: ProfileCardProps) {
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [profile, setProfile] = useState<ProfileData>({
     name: '',
     height: '',
@@ -165,6 +176,74 @@ export function ProfileCard({ user, onLogout }: ProfileCardProps) {
     </Card>
 
     <AchievementsCard />
+
+    {onDeleteAccount && (
+      <>
+        <Card className="mt-6 border-destructive/50">
+          <CardHeader>
+            <CardTitle className="text-destructive flex items-center gap-2">
+              <Icon name="AlertTriangle" className="h-5 w-5" />
+              Опасная зона
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground mb-4">
+              Удаление аккаунта приведёт к безвозвратному удалению всех ваших данных, включая историю сна, медитаций и тренировок.
+            </p>
+            <Button
+              variant="destructive"
+              onClick={() => setShowDeleteDialog(true)}
+              className="w-full"
+            >
+              <Icon name="Trash2" className="mr-2 h-4 w-4" />
+              Удалить аккаунт
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Вы уверены?</DialogTitle>
+              <DialogDescription>
+                Это действие нельзя отменить. Все ваши данные будут безвозвратно удалены:
+                <ul className="list-disc list-inside mt-3 space-y-1 text-sm">
+                  <li>История сна</li>
+                  <li>Записи медитаций</li>
+                  <li>Тренировки и прогулки</li>
+                  <li>Достижения</li>
+                  <li>Учётная запись</li>
+                </ul>
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={() => setShowDeleteDialog(false)}
+                disabled={isDeleting}
+              >
+                Отмена
+              </Button>
+              <Button
+                variant="destructive"
+                onClick={async () => {
+                  setIsDeleting(true);
+                  const success = await onDeleteAccount();
+                  if (success) {
+                    localStorage.clear();
+                    window.location.reload();
+                  }
+                  setIsDeleting(false);
+                }}
+                disabled={isDeleting}
+              >
+                {isDeleting ? 'Удаление...' : 'Да, удалить навсегда'}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </>
+    )}
     </div>
   );
 }

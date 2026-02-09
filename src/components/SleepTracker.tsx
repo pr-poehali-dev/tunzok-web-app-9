@@ -64,6 +64,7 @@ export function SleepTracker({ isPlus }: SleepTrackerProps) {
     const updatedHistory = [newSleep, ...sleepHistory].slice(0, 10);
     setSleepHistory(updatedHistory);
     localStorage.setItem('tunzok_sleep', JSON.stringify(updatedHistory));
+    window.dispatchEvent(new Event('tunzok-data-updated'));
     setBedTime('');
     setWakeTime('');
   };

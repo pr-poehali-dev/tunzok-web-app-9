@@ -105,6 +105,7 @@ export function MeditationTracker() {
       const updated = [newSession, ...sessions];
       setSessions(updated);
       localStorage.setItem('tunzok_meditation', JSON.stringify(updated));
+      window.dispatchEvent(new Event('tunzok-data-updated'));
       setSeconds(0);
     }
   };

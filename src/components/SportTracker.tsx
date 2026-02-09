@@ -85,6 +85,7 @@ export function SportTracker() {
       const updatedHistory = [newWalk, ...walkHistory].slice(0, 10);
       setWalkHistory(updatedHistory);
       localStorage.setItem('tunzok_walk_history', JSON.stringify(updatedHistory));
+      window.dispatchEvent(new Event('tunzok-data-updated'));
     }
     setIsWalking(false);
     setWalkTimer(0);
@@ -117,6 +118,7 @@ export function SportTracker() {
     const updatedHistory = [newWorkout, ...workoutHistory].slice(0, 10);
     setWorkoutHistory(updatedHistory);
     localStorage.setItem('tunzok_workout_history', JSON.stringify(updatedHistory));
+    window.dispatchEvent(new Event('tunzok-data-updated'));
     setExercises([]);
   };
 

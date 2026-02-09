@@ -121,19 +121,14 @@ export function AchievementsCard() {
   useEffect(() => {
     checkProgress();
 
-    const handleStorageChange = () => {
+    const handleDataUpdate = () => {
       checkProgress();
     };
 
-    window.addEventListener('storage', handleStorageChange);
-    
-    const interval = setInterval(() => {
-      checkProgress();
-    }, 2000);
+    window.addEventListener('tunzok-data-updated', handleDataUpdate);
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      clearInterval(interval);
+      window.removeEventListener('tunzok-data-updated', handleDataUpdate);
     };
   }, []);
 

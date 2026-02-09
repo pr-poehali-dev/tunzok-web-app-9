@@ -144,6 +144,10 @@ export function AchievementsCard() {
     }
     
     const req = achievement.requirements;
+    
+    const hasRequirements = Object.keys(req).length > 0;
+    if (!hasRequirements) return false;
+    
     return (
       (!req.sleeps || prog.sleeps >= req.sleeps) &&
       (!req.meditationTypes || prog.meditationTypes.size >= req.meditationTypes) &&

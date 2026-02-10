@@ -6,6 +6,7 @@ import { SportTracker } from '@/components/SportTracker';
 import { MeditationTracker } from '@/components/MeditationTracker';
 import { ProfileCard } from '@/components/ProfileCard';
 import { CommunityCard } from '@/components/CommunityCard';
+import { SubscriptionButton } from '@/components/SubscriptionButton';
 import { t } from '@/lib/i18n';
 import AuthGate from '@/components/AuthGate';
 import { Settings } from '@/pages/Settings';
@@ -131,9 +132,10 @@ function Index() {
                   <p className="text-sm">Доступ к карточке "Здоровое питание"</p>
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground mb-4">
-                Подписка находится на стадии тестирования и сейчас недоступна
-              </p>
+              <SubscriptionButton 
+                userEmail={user.email} 
+                userName={user.name}
+              />
             </div>
           </TabsContent>
 

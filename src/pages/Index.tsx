@@ -8,6 +8,7 @@ import { ProfileCard } from '@/components/ProfileCard';
 import { CommunityCard } from '@/components/CommunityCard';
 import { t } from '@/lib/i18n';
 import AuthGate from '@/components/AuthGate';
+import { Settings } from '@/pages/Settings';
 import type { User } from '@/components/extensions/auth-email/useAuth';
 
 function Index() {
@@ -54,7 +55,7 @@ function Index() {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8">
+          <TabsList className="grid w-full grid-cols-4 mb-8">
             <TabsTrigger value="home" className="transition-all">
               <Icon name="Home" className="mr-2 h-4 w-4" />
               {t('home')}
@@ -66,6 +67,10 @@ function Index() {
             <TabsTrigger value="news" className="transition-all">
               <Icon name="Users" className="mr-2 h-4 w-4" />
               {t('community')}
+            </TabsTrigger>
+            <TabsTrigger value="settings" className="transition-all">
+              <Icon name="Settings" className="mr-2 h-4 w-4" />
+              Настройки
             </TabsTrigger>
           </TabsList>
 
@@ -96,7 +101,7 @@ function Index() {
           </TabsContent>
 
           <TabsContent value="profile" className="animate-fade-in">
-            <ProfileCard user={user} onLogout={logout} onDeleteAccount={deleteAccount} />
+            <ProfileCard user={user} onLogout={logout} />
             
             <div className="mt-6 p-8 bg-gradient-to-br from-primary/10 via-purple-500/10 to-cyan-500/10 border-2 border-primary/20 rounded-2xl text-center animate-fade-in shadow-lg">
               <div className="flex items-center justify-center gap-3 mb-4">
@@ -132,6 +137,10 @@ function Index() {
 
           <TabsContent value="news" className="animate-fade-in">
             <CommunityCard />
+          </TabsContent>
+
+          <TabsContent value="settings" className="animate-fade-in">
+            <Settings user={user} onDeleteAccount={deleteAccount} />
           </TabsContent>
         </Tabs>
 

@@ -30,6 +30,8 @@ export interface User {
   email: string;
   name: string | null;
   email_verified?: boolean;
+  is_premium?: boolean;
+  premium_until?: string;
 }
 
 export interface LoginPayload {

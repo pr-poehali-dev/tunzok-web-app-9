@@ -113,29 +113,62 @@ function Index() {
                   Tunzok Premium
                 </h3>
               </div>
-              <p className="text-lg font-semibold mb-4">279₽ в месяц</p>
-              <div className="max-w-md mx-auto text-left space-y-3 mb-6">
-                <div className="flex items-start gap-2">
-                  <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                  <p className="text-sm">Доступ к подробной аналитике сна за месяц</p>
+              
+              {user.is_premium && user.premium_until ? (
+                <div className="space-y-4">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 border border-green-500/30 rounded-full">
+                    <Icon name="Check" className="h-5 w-5 text-green-500" />
+                    <span className="font-semibold text-green-600 dark:text-green-400">Активна</span>
+                  </div>
+                  <p className="text-muted-foreground">
+                    Подписка активна до {new Date(user.premium_until).toLocaleDateString('ru-RU')}
+                  </p>
+                  <div className="max-w-md mx-auto text-left space-y-3 pt-4 border-t border-border/30">
+                    <div className="flex items-start gap-2">
+                      <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <p className="text-sm">Доступ к подробной аналитике сна за месяц</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <p className="text-sm">Возможность поставить любой таймер для комфортной медитации</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <p className="text-sm">Выполнение достижения "Престиж"</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <p className="text-sm">Доступ к карточке "Здоровое питание"</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-start gap-2">
-                  <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                  <p className="text-sm">Возможность поставить любой таймер для комфортной медитации</p>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                  <p className="text-sm">Выполнение достижения "Престиж"</p>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                  <p className="text-sm">Доступ к карточке "Здоровое питание"</p>
-                </div>
-              </div>
-              <SubscriptionButton 
-                userEmail={user.email} 
-                userName={user.name}
-              />
+              ) : (
+                <>
+                  <p className="text-lg font-semibold mb-4">279₽ в месяц</p>
+                  <div className="max-w-md mx-auto text-left space-y-3 mb-6">
+                    <div className="flex items-start gap-2">
+                      <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <p className="text-sm">Доступ к подробной аналитике сна за месяц</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <p className="text-sm">Возможность поставить любой таймер для комфортной медитации</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <p className="text-sm">Выполнение достижения "Престиж"</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Icon name="Check" className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <p className="text-sm">Доступ к карточке "Здоровое питание"</p>
+                    </div>
+                  </div>
+                  <SubscriptionButton 
+                    userEmail={user.email} 
+                    userName={user.name}
+                  />
+                </>
+              )}
             </div>
           </TabsContent>
 

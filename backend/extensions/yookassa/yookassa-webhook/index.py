@@ -130,8 +130,8 @@ def handler(event, context):
 
         # Find order by payment_id
         cur.execute(f"""
-            SELECT id, status FROM {S}orders
-            WHERE yookassa_payment_id = %s
+            SELECT id, status, user_email FROM {S}orders
+            WHERE payment_id = %s
         """, (payment_id,))
 
         row = cur.fetchone()
@@ -141,7 +141,7 @@ def handler(event, context):
             order_id_meta = metadata.get('order_id')
             if order_id_meta:
                 cur.execute(f"""
-                    SELECT id, status FROM {S}orders WHERE id = %s
+                    SELECT id, status, user_email FROM {S}orders WHERE id = %s
                 """, (int(order_id_meta),))
                 row = cur.fetchone()
 
@@ -152,16 +152,26 @@ def handler(event, context):
                 'body': json.dumps({'error': 'Order not found'})
             }
 
-        order_id, current_status = row
+        order_id, current_status, user_email = row
 
         # Update based on verified payment status
         if payment_status == 'succeeded':
             if current_status != 'paid':
                 cur.execute(f"""
                     UPDATE {S}orders
-                    SET status = 'paid', paid_at = %s, updated_at = %s
+                    SET status = 'paid', payment_status = 'succeeded', updated_at = %s
                     WHERE id = %s
-                """, (now, now, order_id))
+                """, (now, order_id))
+                
+                # Activate premium subscription for user (30 days)
+                cur.execute(f"""
+                    UPDATE {S}users
+                    SET is_premium = TRUE, 
+                        premium_until = NOW() + INTERVAL '30 days',
+                        updated_at = %s
+                    WHERE email = %s
+                """, (now, user_email))
+                
                 conn.commit()
 
         elif payment_status == 'canceled':

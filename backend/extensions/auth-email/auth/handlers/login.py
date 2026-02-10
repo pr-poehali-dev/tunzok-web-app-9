@@ -45,7 +45,7 @@ def handle(event: dict, origin: str = '*') -> dict:
                 return error(429, f'Слишком много попыток. Повторите через {remaining // 60 + 1} мин.', origin)
 
     user = query_one(f"""
-        SELECT id, email, name, password_hash, email_verified
+        SELECT id, email, name, password_hash, email_verified, is_premium, premium_until
         FROM {S}users WHERE email = {escape(email)}
     """)
 
@@ -54,7 +54,7 @@ def handle(event: dict, origin: str = '*') -> dict:
     if not user:
         return error(401, auth_error_msg, origin)
 
-    user_id, user_email, user_name, stored_hash, email_verified = user
+    user_id, user_email, user_name, stored_hash, email_verified, is_premium, premium_until = user
 
     if not verify_password(password, stored_hash):
         now = datetime.utcnow().isoformat()
@@ -90,16 +90,22 @@ def handle(event: dict, origin: str = '*') -> dict:
         VALUES ({escape(user_id)}, {escape(refresh_hash)}, {escape(expires_at)}, {escape(now)})
     """)
 
+    user_data = {
+        'id': user_id,
+        'email': user_email,
+        'name': user_name,
+        'email_verified': email_verified,
+        'is_premium': is_premium or False
+    }
+    
+    if premium_until:
+        user_data['premium_until'] = premium_until.isoformat() if hasattr(premium_until, 'isoformat') else str(premium_until)
+
     return response(200, {
         'access_token': access_token,
         'refresh_token': refresh_token,
         'token_type': 'Bearer',
         'expires_in': ACCESS_TOKEN_EXPIRE_MINUTES * 60,
         'refresh_expires_in': REFRESH_TOKEN_EXPIRE_DAYS * 24 * 60 * 60,
-        'user': {
-            'id': user_id,
-            'email': user_email,
-            'name': user_name,
-            'email_verified': email_verified
-        }
+        'user': user_data
     }, origin)

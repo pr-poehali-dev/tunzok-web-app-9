@@ -95,9 +95,7 @@ function Index() {
                 <div className="bg-card/95 backdrop-blur-sm p-6 rounded-lg border border-green-500/50 shadow-xl text-center space-y-3 max-w-sm">
                   <Icon name="Lock" className="h-8 w-8 mx-auto text-green-500" />
                   <h4 className="font-semibold text-lg">Доступно в Tunzok Premium</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Подписка находится на стадии тестирования и сейчас недоступна
-                  </p>
+                  <p className="text-sm text-muted-foreground">Доступно только с подпиской Tunzok Premium</p>
                 </div>
               </div>
             </div>

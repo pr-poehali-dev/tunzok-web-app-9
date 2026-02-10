@@ -160,7 +160,7 @@ function Terms() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">12. Реквизиты</h2>
             <p className="mb-4">
-              ИП Глушков Алексей Васильевич
+              Самозанятый Глушков Алексей Васильевич
             </p>
             <p className="mb-4">
               ИНН: 691643707747

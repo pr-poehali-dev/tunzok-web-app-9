@@ -271,9 +271,9 @@ def handler(event, context):
         # Update order with payment info
         cur.execute(f"""
             UPDATE {S}orders
-            SET yookassa_payment_id = %s, payment_url = %s, updated_at = %s
+            SET payment_id = %s, updated_at = %s
             WHERE id = %s
-        """, (payment_id, confirmation_url, now, order_id))
+        """, (payment_id, now, order_id))
 
         conn.commit()
 
@@ -281,7 +281,7 @@ def handler(event, context):
             'statusCode': 200,
             'headers': HEADERS,
             'body': json.dumps({
-                'payment_url': confirmation_url,
+                'confirmation_url': confirmation_url,
                 'payment_id': payment_id,
                 'order_id': order_id,
                 'order_number': order_number

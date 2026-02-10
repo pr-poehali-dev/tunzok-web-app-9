@@ -158,7 +158,17 @@ function Terms() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">12. Контакты</h2>
+            <h2 className="text-2xl font-semibold mb-4">12. Реквизиты</h2>
+            <p className="mb-4">
+              ИП Глушков Алексей Васильевич
+            </p>
+            <p className="mb-4">
+              ИНН: 691643707747
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">13. Контакты</h2>
             <p className="mb-4">
               По всем вопросам, связанным с настоящим Соглашением, обращайтесь:
             </p>

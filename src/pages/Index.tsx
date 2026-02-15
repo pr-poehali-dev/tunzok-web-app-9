@@ -14,11 +14,13 @@ import type { User } from '@/components/extensions/auth-email/useAuth';
 
 function Index() {
   const [activeTab, setActiveTab] = useState('home');
-  const [isPlus] = useState(false);
 
   return (
     <AuthGate>
-      {(user: User, logout: () => void, deleteAccount: () => Promise<boolean>) => (
+      {(user: User, logout: () => void, deleteAccount: () => Promise<boolean>) => {
+        const isPlus = user.is_premium || false;
+        
+        return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/30 rounded-full blur-3xl animate-pulse-slow"></div>
@@ -82,23 +84,24 @@ function Index() {
             <MeditationTracker />
             <SportTracker />
             
-            {/* Здоровое питание - заглушка */}
-            <div className="relative">
-              <div className="p-6 bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-lg blur-sm">
-                <div className="flex items-center gap-3 mb-4">
-                  <Icon name="Apple" className="h-8 w-8 text-green-500" />
-                  <h2 className="text-2xl font-bold">Здоровое питание</h2>
+            {!isPlus && (
+              <div className="relative">
+                <div className="p-6 bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-lg blur-sm">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Icon name="Apple" className="h-8 w-8 text-green-500" />
+                    <h2 className="text-2xl font-bold">Здоровое питание</h2>
+                  </div>
+                  <p className="text-muted-foreground">Отслеживайте калории и полезные продукты</p>
                 </div>
-                <p className="text-muted-foreground">Отслеживайте калории и полезные продукты</p>
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="bg-card/95 backdrop-blur-sm p-6 rounded-lg border border-green-500/50 shadow-xl text-center space-y-3 max-w-sm">
-                  <Icon name="Lock" className="h-8 w-8 mx-auto text-green-500" />
-                  <h4 className="font-semibold text-lg">Доступно в Tunzok Premium</h4>
-                  <p className="text-sm text-muted-foreground">Доступно только с подпиской Tunzok Premium</p>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="bg-card/95 backdrop-blur-sm p-6 rounded-lg border border-green-500/50 shadow-xl text-center space-y-3 max-w-sm">
+                    <Icon name="Lock" className="h-8 w-8 mx-auto text-green-500" />
+                    <h4 className="font-semibold text-lg">Доступно в Tunzok Premium</h4>
+                    <p className="text-sm text-muted-foreground">Доступно только с подпиской Tunzok Premium</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </TabsContent>
 
           <TabsContent value="profile" className="animate-fade-in">
@@ -201,7 +204,8 @@ function Index() {
         </footer>
       </div>
     </div>
-      )}
+        );
+      }}
     </AuthGate>
   );
 }

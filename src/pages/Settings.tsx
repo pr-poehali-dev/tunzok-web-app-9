@@ -39,21 +39,18 @@ export function Settings({ user, onDeleteAccount }: SettingsProps) {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container max-w-4xl mx-auto px-4 py-8">
-        <Button 
-          variant="ghost" 
-          onClick={() => navigate('/')}
-          className="mb-6"
-        >
-          <Icon name="ArrowLeft" className="mr-2 h-4 w-4" />
-          {t('home')}
-        </Button>
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/30 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl animate-pulse-slow" style={{animationDelay: '1s'}}></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-primary/15 to-transparent rounded-full blur-2xl animate-spin-slow"></div>
+      </div>
 
+      <div className="container max-w-4xl mx-auto px-4 py-8 relative z-10">
         <h1 className="text-4xl font-bold mb-8">Настройки</h1>
 
         <div className="space-y-6">
-          <Card>
+          <Card className="bg-gradient-to-br from-primary/5 via-purple-500/5 to-cyan-500/5 backdrop-blur-sm border-primary/10">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Icon name="Globe" className="h-5 w-5 text-primary" />
@@ -79,7 +76,7 @@ export function Settings({ user, onDeleteAccount }: SettingsProps) {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-gradient-to-br from-primary/5 via-purple-500/5 to-cyan-500/5 backdrop-blur-sm border-primary/10">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Icon name="Moon" className="h-5 w-5 text-primary" />
@@ -112,7 +109,7 @@ export function Settings({ user, onDeleteAccount }: SettingsProps) {
 
           {user && onDeleteAccount && (
             <>
-              <Card className="border-destructive/50">
+              <Card className="bg-gradient-to-br from-destructive/5 via-red-500/5 to-orange-500/5 backdrop-blur-sm border-destructive/50">
                 <CardHeader>
                   <CardTitle className="text-destructive flex items-center gap-2">
                     <Icon name="AlertTriangle" className="h-5 w-5" />

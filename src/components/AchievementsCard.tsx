@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import Icon from '@/components/ui/icon';
 import { t } from '@/lib/i18n';
+import { useAuth } from '@/components/extensions/auth-email/useAuth';
 
 interface Achievement {
   id: string;
@@ -50,6 +51,7 @@ const achievements: Achievement[] = [
 ];
 
 export function AchievementsCard() {
+  const { user } = useAuth();
   const [progress, setProgress] = useState<AchievementProgress>({
     sleeps: 0,
     meditationTypes: new Set(),
@@ -134,7 +136,7 @@ export function AchievementsCard() {
 
   const isAchievementUnlocked = (achievement: Achievement, prog: AchievementProgress): boolean => {
     if (achievement.id === 'prestige') {
-      const hasPremium = localStorage.getItem('tunzok_premium_subscription') === 'active';
+      const hasPremium = user?.is_premium || false;
       return hasPremium;
     }
     

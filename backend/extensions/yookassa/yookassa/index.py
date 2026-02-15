@@ -4,7 +4,7 @@ import os
 import re
 import uuid
 import base64
-from datetime import datetime
+from datetime import datetime, timedelta
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError
 
@@ -161,6 +161,62 @@ def handler(event, context):
             'statusCode': 400,
             'headers': HEADERS,
             'body': json.dumps({'error': 'Invalid JSON'})
+        }
+
+    # Admin action: grant premium
+    if data.get('action') == 'grant_premium':
+        email = data.get('email', '').strip()
+        days = int(data.get('days', 365))
+        
+        if not email or not is_valid_email(email):
+            return {
+                'statusCode': 400,
+                'headers': HEADERS,
+                'body': json.dumps({'error': 'Valid email is required'})
+            }
+        
+        S = get_schema()
+        conn = get_connection()
+        cur = conn.cursor()
+        
+        cur.execute(f"SELECT id FROM {S}users WHERE email = %s", (email,))
+        user = cur.fetchone()
+        
+        if not user:
+            cur.close()
+            conn.close()
+            return {
+                'statusCode': 404,
+                'headers': HEADERS,
+                'body': json.dumps({'error': 'User not found'})
+            }
+        
+        user_id = user[0]
+        now = datetime.utcnow()
+        premium_until = (now + timedelta(days=days)).isoformat()
+        now_iso = now.isoformat()
+        
+        cur.execute(f"""
+            UPDATE {S}users 
+            SET is_premium = TRUE, 
+                premium_until = %s,
+                updated_at = %s
+            WHERE id = %s
+        """, (premium_until, now_iso, user_id))
+        
+        conn.commit()
+        cur.close()
+        conn.close()
+        
+        return {
+            'statusCode': 200,
+            'headers': HEADERS,
+            'body': json.dumps({
+                'message': 'Premium granted',
+                'email': email,
+                'days': days,
+                'user_id': user_id
+            })
         }
 
     # Validate required fields

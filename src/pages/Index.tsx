@@ -4,7 +4,6 @@ import Icon from '@/components/ui/icon';
 import { SleepTracker } from '@/components/SleepTracker';
 import { SportTracker } from '@/components/SportTracker';
 import { MeditationTracker } from '@/components/MeditationTracker';
-import { NutritionTracker } from '@/components/NutritionTracker';
 import { ProfileCard } from '@/components/ProfileCard';
 import { CommunityCard } from '@/components/CommunityCard';
 import { SubscriptionButton } from '@/components/SubscriptionButton';
@@ -85,9 +84,7 @@ function Index() {
             <MeditationTracker />
             <SportTracker />
             
-            {isPlus ? (
-              <NutritionTracker />
-            ) : (
+            {!isPlus && (
               <div className="relative">
                 <div className="p-6 bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-lg blur-sm">
                   <div className="flex items-center gap-3 mb-4">

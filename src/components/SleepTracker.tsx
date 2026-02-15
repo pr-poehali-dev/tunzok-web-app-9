@@ -139,24 +139,76 @@ export function SleepTracker({ isPlus }: SleepTrackerProps) {
         )}
 
         <div className="relative mt-6">
-          <div className={`p-6 bg-secondary/50 rounded-lg border-2 border-dashed border-border ${!isPlus ? 'blur-sm' : ''}`}>
-            <div className="h-48 flex items-center justify-center">
-              <div className="text-center space-y-2">
-                <Icon name="TrendingUp" className="h-12 w-12 mx-auto text-muted-foreground" />
-                <p className="text-sm text-muted-foreground">{t('sleepAnalyticsChart')}</p>
-              </div>
-            </div>
-          </div>
-          {!isPlus && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="bg-card/95 backdrop-blur-sm p-6 rounded-lg border border-primary/50 shadow-xl text-center space-y-3 animate-scale-in">
-                <Icon name="Lock" className="h-8 w-8 mx-auto text-primary" />
-                <h4 className="font-semibold text-lg">{t('monthlyAnalytics')}</h4>
-                <p className="text-sm text-muted-foreground">
-                  {t('availableIn')} <span className="text-primary font-semibold">{t('tunzokPremium')}</span>
+          {isPlus ? (
+            <div className="p-6 bg-gradient-to-br from-primary/10 to-purple-500/10 rounded-lg border border-primary/20">
+              <h3 className="font-semibold mb-4 flex items-center gap-2">
+                <Icon name="TrendingUp" className="h-5 w-5 text-primary" />
+                Аналитика за месяц
+              </h3>
+              {sleepHistory.length > 0 ? (
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="p-4 bg-card/50 rounded-lg text-center">
+                    <p className="text-sm text-muted-foreground mb-1">Средняя продолжительность</p>
+                    <p className="text-2xl font-bold text-primary">
+                      {(() => {
+                        const totalMinutes = sleepHistory.reduce((sum, sleep) => {
+                          const [hours, mins] = sleep.duration.match(/\d+/g)?.map(Number) || [0, 0];
+                          return sum + (hours * 60 + mins);
+                        }, 0);
+                        const avgMinutes = Math.round(totalMinutes / sleepHistory.length);
+                        const avgHours = Math.floor(avgMinutes / 60);
+                        const avgMins = avgMinutes % 60;
+                        return `${avgHours}ч ${avgMins}м`;
+                      })()}
+                    </p>
+                  </div>
+                  <div className="p-4 bg-card/50 rounded-lg text-center">
+                    <p className="text-sm text-muted-foreground mb-1">Записей за месяц</p>
+                    <p className="text-2xl font-bold text-cyan-500">{sleepHistory.length}</p>
+                  </div>
+                  <div className="p-4 bg-card/50 rounded-lg text-center">
+                    <p className="text-sm text-muted-foreground mb-1">Качество сна</p>
+                    <p className="text-2xl font-bold text-green-500">
+                      {(() => {
+                        const totalMinutes = sleepHistory.reduce((sum, sleep) => {
+                          const [hours, mins] = sleep.duration.match(/\d+/g)?.map(Number) || [0, 0];
+                          return sum + (hours * 60 + mins);
+                        }, 0);
+                        const avgMinutes = totalMinutes / sleepHistory.length;
+                        const avgHours = avgMinutes / 60;
+                        if (avgHours >= 7 && avgHours <= 9) return '🟢 Отлично';
+                        if (avgHours >= 6 && avgHours < 7) return '🟡 Хорошо';
+                        return '🔴 Мало';
+                      })()}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-sm text-muted-foreground text-center py-8">
+                  Добавьте записи сна, чтобы увидеть аналитику
                 </p>
-              </div>
+              )}
             </div>
+          ) : (
+            <>
+              <div className="p-6 bg-secondary/50 rounded-lg border-2 border-dashed border-border blur-sm">
+                <div className="h-48 flex items-center justify-center">
+                  <div className="text-center space-y-2">
+                    <Icon name="TrendingUp" className="h-12 w-12 mx-auto text-muted-foreground" />
+                    <p className="text-sm text-muted-foreground">{t('sleepAnalyticsChart')}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="bg-card/95 backdrop-blur-sm p-6 rounded-lg border border-primary/50 shadow-xl text-center space-y-3 animate-scale-in">
+                  <Icon name="Lock" className="h-8 w-8 mx-auto text-primary" />
+                  <h4 className="font-semibold text-lg">{t('monthlyAnalytics')}</h4>
+                  <p className="text-sm text-muted-foreground">
+                    {t('availableIn')} <span className="text-primary font-semibold">{t('tunzokPremium')}</span>
+                  </p>
+                </div>
+              </div>
+            </>
           )}
         </div>
       </CardContent>
